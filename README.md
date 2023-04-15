@@ -5,6 +5,13 @@ Breast Cancer Wisconsin (Diagnostic) Data Set
 
 ------------------------------------------------------------------------
 
+### Contents
+
+- [Setup](#setup)
+- [Data Import](#data-import)
+- [Checking for Missing Data](#checking-for-missing-data)
+- [Exploratory Data Analysis](#exploratory-data-analysis)
+
 ### Setup
 
 ``` r
@@ -77,6 +84,10 @@ colSums(is.na(df))
     ##                       0                       0
 
 None :)
+
+### Exploratory Data Analysis
+
+------------------------------------------------------------------------
 
 ### Overview of *diagnosis*
 
@@ -255,3 +266,240 @@ df2 |>
 </details>
 
 ![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+
+### Overview of *concave_points_mean*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(concave_points_mean)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Concave Points Mean", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Concave Points Mean by Diagnosis",
+       subtitle = sub_5num(df2$concave_points_mean))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+
+### Overview of *symmetry_mean*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(symmetry_mean)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Symmetry Mean", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Symmetry Mean by Diagnosis",
+       subtitle = sub_5num(df2$symmetry_mean))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+
+### Overview of *fractal_dimension_mean*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(fractal_dimension_mean)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Fractal Dimension Mean", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Fractal Dimension Mean by Diagnosis",
+       subtitle = sub_5num(df2$fractal_dimension_mean))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+
+### Overview of *radius_se*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(radius_se)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Radius Standard Error", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Radius Standard Error by Diagnosis",
+       subtitle = sub_5num(df2$radius_se))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+
+### Overview of *texture_se*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(texture_se)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Texture Standard Error", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Texture Standard Error by Diagnosis",
+       subtitle = sub_5num(df2$texture_se))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+
+### Overview of *perimeter_se*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(perimeter_se)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Perimeter Standard Error", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Perimeter Standard Error by Diagnosis",
+       subtitle = sub_5num(df2$perimeter_se))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+
+### Overview of *area_se*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(area_se)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Area Standard Error", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Area Standard Error by Diagnosis",
+       subtitle = sub_5num(df2$area_se))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+
+### Overview of *smoothness_se*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(smoothness_se)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Smoothness Standard Error", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Smoothness Standard Error by Diagnosis",
+       subtitle = sub_5num(df2$smoothness_se))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+
+### Overview of *compactness_se*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(compactness_se)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Compactness Standard Error", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Compactness Standard Error by Diagnosis",
+       subtitle = sub_5num(df2$compactness_se))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+
+### Overview of *concavity_se*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(concavity_se)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Concavity Standard Error", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Concavity Standard Error by Diagnosis",
+       subtitle = sub_5num(df2$concavity_se))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+
+### Overview of *concave_points_se*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(concave_points_se)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Concave Points Standard Error", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Concave Points Standard Error by Diagnosis",
+       subtitle = sub_5num(df2$concave_points_se))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+
+### Script Runtime
+
+``` r
+tictoc::toc()
+```

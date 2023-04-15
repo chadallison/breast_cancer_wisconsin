@@ -25,6 +25,13 @@ knitr::knit_hooks$set(source = function(x, options) {
 
 ___
 
+### Contents
+
+- [Setup]
+- [Data Import]
+- [Checking for Missing Data]
+- [Exploratory Data Analysis]
+
 ### Setup
 
 ```{r message = F, warning = F}
@@ -58,6 +65,10 @@ colSums(is.na(df))
 ```
 
 None :)
+
+### Exploratory Data Analysis
+
+___
 
 ### Overview of *diagnosis*
 
@@ -165,12 +176,149 @@ df2 |>
        subtitle = sub_5num(df2$concavity_mean))
 ```
 
+### Overview of *concave_points_mean*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(concave_points_mean)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Concave Points Mean", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Concave Points Mean by Diagnosis",
+       subtitle = sub_5num(df2$concave_points_mean))
+```
+
+### Overview of *symmetry_mean*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(symmetry_mean)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Symmetry Mean", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Symmetry Mean by Diagnosis",
+       subtitle = sub_5num(df2$symmetry_mean))
+```
+
+### Overview of *fractal_dimension_mean*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(fractal_dimension_mean)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Fractal Dimension Mean", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Fractal Dimension Mean by Diagnosis",
+       subtitle = sub_5num(df2$fractal_dimension_mean))
+```
+
+### Overview of *radius_se*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(radius_se)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Radius Standard Error", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Radius Standard Error by Diagnosis",
+       subtitle = sub_5num(df2$radius_se))
+```
+
+### Overview of *texture_se*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(texture_se)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Texture Standard Error", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Texture Standard Error by Diagnosis",
+       subtitle = sub_5num(df2$texture_se))
+```
+
+### Overview of *perimeter_se*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(perimeter_se)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Perimeter Standard Error", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Perimeter Standard Error by Diagnosis",
+       subtitle = sub_5num(df2$perimeter_se))
+```
+
+### Overview of *area_se*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(area_se)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Area Standard Error", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Area Standard Error by Diagnosis",
+       subtitle = sub_5num(df2$area_se))
+```
+
+### Overview of *smoothness_se*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(smoothness_se)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Smoothness Standard Error", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Smoothness Standard Error by Diagnosis",
+       subtitle = sub_5num(df2$smoothness_se))
+```
+
+### Overview of *compactness_se*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(compactness_se)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Compactness Standard Error", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Compactness Standard Error by Diagnosis",
+       subtitle = sub_5num(df2$compactness_se))
+```
+
+### Overview of *concavity_se*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(concavity_se)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Concavity Standard Error", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Concavity Standard Error by Diagnosis",
+       subtitle = sub_5num(df2$concavity_se))
+```
+
+### Overview of *concave_points_se*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(concave_points_se)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Concave Points Standard Error", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Concave Points Standard Error by Diagnosis",
+       subtitle = sub_5num(df2$concave_points_se))
+```
 
 
 
 
 
 
+
+### Script Runtime
+
+```{r}
+tictoc::toc()
+```
 
 
 
