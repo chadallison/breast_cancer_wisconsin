@@ -6,6 +6,23 @@ knit: (function(input, ...) { rmarkdown::render(input, output_file = "README.md"
 
 # **IN PROGRESS**
 
+```{r include = F}
+knitr::knit_hooks$set(source = function(x, options) {
+    hook.r = function(x, options) {
+      fence = "```"
+      language = tolower(options$engine)
+      if (language == "node") language = "javascript"
+      if (!options$highlight) language = "text"
+      if (!is.null(options$fold_code)) {
+        paste0("\n\n", "<details><summary>View Code</summary>\n", fence, language,
+               "\n", x, fence, "\n\n", "</details>\n")
+      } else paste0('\n\n', fence, language, '\n', x, fence,  '\n\n')
+    }
+    x = knitr:::hilight_source(x, "markdown", options)
+    hook.r(paste(c(x, ""), collapse = "\n"), options)
+})
+```
+
 ___
 
 ### Setup
@@ -19,30 +36,32 @@ library(patchwork)
 
 theme_custom = theme_avatar() +
   theme(plot.title = element_text(hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5, size = 9, vjust = 2.5, face = "italic"),
         panel.grid.major = element_line(linewidth = 0.5, colour = "#D6D0C4"),
         panel.grid.minor = element_line(linewidth = 0.5, colour = "#D6D0C4"))
 
 theme_set(theme_custom)
+custom_fills = scale_fill_manual(values = c("springgreen4", "indianred3"))
 ```
 
 ### Data Import
 
-```{r}
+```{r fold_code = T}
 df = clean_names(read_csv("breast_cancer_data.csv", col_types = cols()))
 paste0("Data Dimensions: ", nrow(df), " Rows, ", ncol(df), " Columns")
 ```
 
 ### Checking for Missing Data
 
-```{r}
+```{r fold_code = T}
 colSums(is.na(df))
 ```
 
 None :)
 
-### XXX
+### Overview of *diagnosis*
 
-```{r}
+```{r fold_code = T}
 # renaming `diagnosis` labels
 df2 = df |>
   mutate(diagnosis = ifelse(diagnosis == "M", "Malignant", "Benign"))
@@ -51,11 +70,55 @@ df2 |>
   count(diagnosis) |>
   ggplot(aes(diagnosis, n)) +
   geom_col(aes(fill = diagnosis), show.legend = F) +
-  geom_text(aes(label = n), size = 3, vjust = -0.5) +
+  geom_text(aes(label = n), size = 3.5, vjust = -0.5) +
   scale_fill_manual(values = c("springgreen4", "indianred3")) +
   labs(x = "Diagnosis", y = "Count", title = "Diagnosis Counts") +
   theme(axis.text.y = element_blank())
 ```
+
+### Overview of *radius_mean*
+
+```{r fold_code = T}
+sub_5num = function(x) {
+  sub = fivenum(x)
+  paste0("Min: ", sub[1], " | Q1: ", sub[2], " | Median: ", sub[3], " | Q3: ", sub[4], " | Max: ", sub[5])
+}
+
+df2 |>
+  ggplot(aes(radius_mean)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Radius Mean", y = "Density",
+       title = "Distribution of Radius Mean by Diagnosis", fill = NULL,
+       subtitle = sub_5num(df2$radius_mean))
+```
+
+### Overview of *texture_mean*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(texture_mean)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Texture Mean", y = "Density",
+       title = "Distribution of Texture Mean by Diagnosis", fill = "Diagnosis",
+       subtitle = sub_5num(df2$texture_mean))
+```
+
+### Overview of *perimeter_mean*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(perimeter_mean)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Perimeter Mean", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Perimeter Mean by Diagnosis",
+       subtitle = sub_5num(df2$perimeter_mean))
+```
+
+
+
 
 
 

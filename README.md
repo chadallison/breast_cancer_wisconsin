@@ -16,37 +16,42 @@ library(patchwork)
 
 theme_custom = theme_avatar() +
   theme(plot.title = element_text(hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5, size = 9, vjust = 2.5, face = "italic"),
         panel.grid.major = element_line(linewidth = 0.5, colour = "#D6D0C4"),
         panel.grid.minor = element_line(linewidth = 0.5, colour = "#D6D0C4"))
 
 theme_set(theme_custom)
+custom_fills = scale_fill_manual(values = c("springgreen4", "indianred3"))
 ```
 
 ### Data Import
 
+<details>
+<summary>
+View Code
+</summary>
+
 ``` r
 df = clean_names(read_csv("breast_cancer_data.csv", col_types = cols()))
-```
-
-    ## New names:
-    ## • `` -> `...33`
-
-    ## Warning: One or more parsing issues, call `problems()` on your data frame for details,
-    ## e.g.:
-    ##   dat <- vroom(...)
-    ##   problems(dat)
-
-``` r
 paste0("Data Dimensions: ", nrow(df), " Rows, ", ncol(df), " Columns")
 ```
 
-    ## [1] "Data Dimensions: 568 Rows, 33 Columns"
+</details>
+
+    ## [1] "Data Dimensions: 569 Rows, 32 Columns"
 
 ### Checking for Missing Data
+
+<details>
+<summary>
+View Code
+</summary>
 
 ``` r
 colSums(is.na(df))
 ```
+
+</details>
 
     ##                      id               diagnosis             radius_mean 
     ##                       0                       0                       0 
@@ -68,12 +73,17 @@ colSums(is.na(df))
     ##                       0                       0                       0 
     ##       compactness_worst         concavity_worst    concave_points_worst 
     ##                       0                       0                       0 
-    ##          symmetry_worst fractal_dimension_worst                     x33 
-    ##                       0                       0                     568
+    ##          symmetry_worst fractal_dimension_worst 
+    ##                       0                       0
 
 None :)
 
-### XXX
+### Overview of *diagnosis*
+
+<details>
+<summary>
+View Code
+</summary>
 
 ``` r
 # renaming `diagnosis` labels
@@ -84,10 +94,80 @@ df2 |>
   count(diagnosis) |>
   ggplot(aes(diagnosis, n)) +
   geom_col(aes(fill = diagnosis), show.legend = F) +
-  geom_text(aes(label = n), size = 3, vjust = -0.5) +
+  geom_text(aes(label = n), size = 3.5, vjust = -0.5) +
   scale_fill_manual(values = c("springgreen4", "indianred3")) +
   labs(x = "Diagnosis", y = "Count", title = "Diagnosis Counts") +
   theme(axis.text.y = element_blank())
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+### Overview of *radius_mean*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+sub_5num = function(x) {
+  sub = fivenum(x)
+  paste0("Min: ", sub[1], " | Q1: ", sub[2], " | Median: ", sub[3], " | Q3: ", sub[4], " | Max: ", sub[5])
+}
+
+df2 |>
+  ggplot(aes(radius_mean)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Radius Mean", y = "Density",
+       title = "Distribution of Radius Mean by Diagnosis", fill = NULL,
+       subtitle = sub_5num(df2$radius_mean))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+### Overview of *texture_mean*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(texture_mean)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Texture Mean", y = "Density",
+       title = "Distribution of Texture Mean by Diagnosis", fill = "Diagnosis",
+       subtitle = sub_5num(df2$texture_mean))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+### Overview of *perimeter_mean*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(perimeter_mean)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Perimeter Mean", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Perimeter Mean by Diagnosis",
+       subtitle = sub_5num(df2$perimeter_mean))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
