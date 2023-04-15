@@ -26,10 +26,21 @@ theme_set(theme_custom)
 
 ``` r
 df = clean_names(read_csv("breast_cancer_data.csv", col_types = cols()))
+```
+
+    ## New names:
+    ## • `` -> `...33`
+
+    ## Warning: One or more parsing issues, call `problems()` on your data frame for details,
+    ## e.g.:
+    ##   dat <- vroom(...)
+    ##   problems(dat)
+
+``` r
 paste0("Data Dimensions: ", nrow(df), " Rows, ", ncol(df), " Columns")
 ```
 
-    ## [1] "Data Dimensions: 569 Rows, 32 Columns"
+    ## [1] "Data Dimensions: 568 Rows, 33 Columns"
 
 ### Checking for Missing Data
 
@@ -57,8 +68,8 @@ colSums(is.na(df))
     ##                       0                       0                       0 
     ##       compactness_worst         concavity_worst    concave_points_worst 
     ##                       0                       0                       0 
-    ##          symmetry_worst fractal_dimension_worst 
-    ##                       0                       0
+    ##          symmetry_worst fractal_dimension_worst                     x33 
+    ##                       0                       0                     568
 
 None :)
 
