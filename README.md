@@ -63,3 +63,13 @@ colSums(is.na(df))
 none :)
 
 ### xxx
+
+``` r
+df |>
+  mutate(diagnosis = ifelse(diagnosis == "B", "benign", "malignant")) |>
+  ggplot(aes(radius_mean)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  scale_fill_manual(values = c("springgreen4", "indianred3"))
+```
+
+![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
