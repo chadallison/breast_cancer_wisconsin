@@ -4,6 +4,8 @@ output: github_document
 knit: (function(input, ...) { rmarkdown::render(input, output_file = "README.md", envir = globalenv()) })
 ---
 
+[Kaggle Link](https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data)
+
 # **IN PROGRESS**
 
 ```{r include = F}
@@ -321,18 +323,6 @@ df2 |>
 ```{r}
 tictoc::toc()
 ```
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
