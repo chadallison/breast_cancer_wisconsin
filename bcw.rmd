@@ -1,0 +1,98 @@
+---
+title: "Breast Cancer Wisconsin (Diagnostic) Data Set"
+output: github_document
+knit: (function(input, ...) { rmarkdown::render(input, output_file = "README.md", envir = globalenv()) })
+---
+
+# **IN PROGRESS**
+
+___
+
+### setup
+
+```{r message = F, warning = F}
+library(tidyverse)
+library(tidymodels)
+library(tvthemes)
+library(janitor)
+library(patchwork)
+
+theme_custom = theme_avatar() +
+  theme(plot.title = element_text(hjust = 0.5),
+        panel.grid.major = element_line(linewidth = 0.5, colour = "#D6D0C4"),
+        panel.grid.minor = element_line(linewidth = 0.5, colour = "#D6D0C4"))
+
+theme_set(theme_custom)
+```
+
+### data import
+
+```{r}
+df = read_csv("breast_cancer_data.csv", col_types = cols())
+paste0("data dimensions: ", nrow(df), " rows, ", ncol(df), " columns")
+```
+
+### checking for missing data
+
+```{r}
+colSums(is.na(df))
+```
+
+none :)
+
+### xxx
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
