@@ -66,10 +66,10 @@ None :)
 
 ``` r
 # renaming `diagnosis` labels
-df = df |>
+df2 = df |>
   mutate(diagnosis = ifelse(diagnosis == "M", "Malignant", "Benign"))
 
-df |>
+df2 |>
   count(diagnosis) |>
   ggplot(aes(diagnosis, n)) +
   geom_col(aes(fill = diagnosis), show.legend = F) +
