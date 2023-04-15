@@ -35,6 +35,8 @@ ___
 ### Setup
 
 ```{r message = F, warning = F}
+tictoc::tic()
+
 library(tidyverse)
 library(tidymodels)
 library(tvthemes)

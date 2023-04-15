@@ -15,6 +15,8 @@ Breast Cancer Wisconsin (Diagnostic) Data Set
 ### Setup
 
 ``` r
+tictoc::tic()
+
 library(tidyverse)
 library(tidymodels)
 library(tvthemes)
@@ -503,3 +505,5 @@ df2 |>
 ``` r
 tictoc::toc()
 ```
+
+    ## 7.53 sec elapsed
