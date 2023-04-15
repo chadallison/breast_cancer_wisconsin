@@ -171,3 +171,66 @@ df2 |>
 </details>
 
 ![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+### Overview of *area_mean*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(area_mean)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Area Mean", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Area Mean by Diagnosis",
+       subtitle = sub_5num(df2$area_mean))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
+### Overview of *smoothness_mean*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(smoothness_mean)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Smoothness Mean", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Smoothness Mean by Diagnosis",
+       subtitle = sub_5num(df2$smoothness_mean))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+
+### Overview of *compactness_mean*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(compactness_mean)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Compactness Mean", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Compactness Mean by Diagnosis",
+       subtitle = sub_5num(df2$compactness_mean))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->

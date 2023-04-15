@@ -117,6 +117,44 @@ df2 |>
        subtitle = sub_5num(df2$perimeter_mean))
 ```
 
+### Overview of *area_mean*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(area_mean)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Area Mean", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Area Mean by Diagnosis",
+       subtitle = sub_5num(df2$area_mean))
+```
+
+### Overview of *smoothness_mean*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(smoothness_mean)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Smoothness Mean", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Smoothness Mean by Diagnosis",
+       subtitle = sub_5num(df2$smoothness_mean))
+```
+
+### Overview of *compactness_mean*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(compactness_mean)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Compactness Mean", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Compactness Mean by Diagnosis",
+       subtitle = sub_5num(df2$compactness_mean))
+```
+
+
+
 
 
 
