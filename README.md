@@ -234,3 +234,24 @@ df2 |>
 </details>
 
 ![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+
+### Overview of *concavity_mean*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(concavity_mean)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Concavity Mean", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Concavity Mean by Diagnosis",
+       subtitle = sub_5num(df2$concavity_mean))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
