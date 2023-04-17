@@ -503,10 +503,54 @@ df2 |>
 
 ![](README_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
+### Overview of *symmetry_se*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(symmetry_se)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Symmetry Standard Error", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Symmetry Standard Error by Diagnosis",
+       subtitle = sub_5num(df2$symmetry_se))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+
+### Overview of *fractal_dimension_se*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(fractal_dimension_se)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Fractal Dimension Standard Error", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Fractal Dimension Standard Error by Diagnosis",
+       subtitle = sub_5num(df2$fractal_dimension_se))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+
+### *worst*-type variables placeholder
+
 ### Script Runtime
 
 ``` r
 tictoc::toc()
 ```
 
-    ## 7.59 sec elapsed
+    ## 9.12 sec elapsed
