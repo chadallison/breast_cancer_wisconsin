@@ -33,6 +33,7 @@ ___
 - [Data Import]
 - [Checking for Missing Data]
 - [Exploratory Data Analysis]
+- [Modeling]
 
 ### Setup
 
@@ -44,6 +45,7 @@ library(tidymodels)
 library(tvthemes)
 library(janitor)
 library(patchwork)
+library(ggcorrplot)
 
 theme_custom = theme_avatar() +
   theme(plot.title = element_text(hjust = 0.5),
@@ -396,7 +398,104 @@ df2 |>
        subtitle = sub_5num(df2$smoothness_worst))
 ```
 
-### *worst*-type variables placeholder
+### Overview of *compactness_worst*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(compactness_worst)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Compactness Worst", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Compactness Worst by Diagnosis",
+       subtitle = sub_5num(df2$compactness_worst))
+```
+
+### Overview of *concavity_worst*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(concavity_worst)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Concavity Worst", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Concavity Worst by Diagnosis",
+       subtitle = sub_5num(df2$concavity_worst))
+```
+
+### Overview of *concave_points_worst*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(concave_points_worst)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Concave Points Worst", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Concave Points Worst by Diagnosis",
+       subtitle = sub_5num(df2$concave_points_worst))
+```
+
+### Overview of *symmetry_worst*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(symmetry_worst)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Symmetry Worst", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Symmetry Worst by Diagnosis",
+       subtitle = sub_5num(df2$symmetry_worst))
+```
+
+### Overview of *fractal_dimension_worst*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(fractal_dimension_worst)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Fractal Dimension Worst", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Fractal Dimension Worst by Diagnosis",
+       subtitle = sub_5num(df2$fractal_dimension_worst))
+```
+
+### Correlation Plot for All *mean* Variables
+
+```{r fold_code = T}
+df2 |>
+  select(contains("mean")) |>
+  cor() |>
+  ggcorrplot(lab = T, type = "lower", lab_size = 3,
+             colors = c("indianred3", "white", "springgreen4"))
+```
+
+### Correlation Plot for All *se* Variables
+
+```{r fold_code = T}
+df2 |>
+  select(contains("se")) |>
+  cor() |>
+  ggcorrplot(lab = T, type = "lower", lab_size = 3,
+             colors = c("indianred3", "white", "springgreen4"))
+```
+
+### Correlation Plot for All *worst* Variables
+
+```{r fold_code = T}
+df2 |>
+  select(contains("worst")) |>
+  cor() |>
+  ggcorrplot(lab = T, type = "lower", lab_size = 3,
+             colors = c("indianred3", "white", "springgreen4"))
+```
+
+This will conclude the exploratory portion of the analysis, and I will now move onto the modeling portion.
+
+### Modeling
+
+*placeholder text*
+
+
+
 
 
 

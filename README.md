@@ -14,6 +14,7 @@ Link](https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data)
 - [Data Import](#data-import)
 - [Checking for Missing Data](#checking-for-missing-data)
 - [Exploratory Data Analysis](#exploratory-data-analysis)
+- [Modeling](#modeling)
 
 ### Setup
 
@@ -25,6 +26,7 @@ library(tidymodels)
 library(tvthemes)
 library(janitor)
 library(patchwork)
+library(ggcorrplot)
 
 theme_custom = theme_avatar() +
   theme(plot.title = element_text(hjust = 0.5),
@@ -650,7 +652,174 @@ df2 |>
 
 ![](README_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
 
-### *worst*-type variables placeholder
+### Overview of *compactness_worst*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(compactness_worst)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Compactness Worst", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Compactness Worst by Diagnosis",
+       subtitle = sub_5num(df2$compactness_worst))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
+
+### Overview of *concavity_worst*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(concavity_worst)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Concavity Worst", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Concavity Worst by Diagnosis",
+       subtitle = sub_5num(df2$concavity_worst))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
+
+### Overview of *concave_points_worst*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(concave_points_worst)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Concave Points Worst", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Concave Points Worst by Diagnosis",
+       subtitle = sub_5num(df2$concave_points_worst))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
+
+### Overview of *symmetry_worst*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(symmetry_worst)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Symmetry Worst", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Symmetry Worst by Diagnosis",
+       subtitle = sub_5num(df2$symmetry_worst))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
+
+### Overview of *fractal_dimension_worst*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(fractal_dimension_worst)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Fractal Dimension Worst", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Fractal Dimension Worst by Diagnosis",
+       subtitle = sub_5num(df2$fractal_dimension_worst))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
+
+### Correlation Plot for All *mean* Variables
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  select(contains("mean")) |>
+  cor() |>
+  ggcorrplot(lab = T, type = "lower", lab_size = 3,
+             colors = c("indianred3", "white", "springgreen4"))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-36-1.png)<!-- -->
+
+### Correlation Plot for All *se* Variables
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  select(contains("se")) |>
+  cor() |>
+  ggcorrplot(lab = T, type = "lower", lab_size = 3,
+             colors = c("indianred3", "white", "springgreen4"))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-37-1.png)<!-- -->
+
+### Correlation Plot for All *worst* Variables
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  select(contains("worst")) |>
+  cor() |>
+  ggcorrplot(lab = T, type = "lower", lab_size = 3,
+             colors = c("indianred3", "white", "springgreen4"))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-38-1.png)<!-- -->
+
+This will conclude the exploratory portion of the analysis, and I will
+now move onto the modeling portion.
+
+### Modeling
+
+*placeholder text*
 
 ### Script Runtime
 
@@ -658,4 +827,4 @@ df2 |>
 tictoc::toc()
 ```
 
-    ## 9.38 sec elapsed
+    ## 11.31 sec elapsed
