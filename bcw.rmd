@@ -336,6 +336,66 @@ df2 |>
        subtitle = sub_5num(df2$fractal_dimension_se))
 ```
 
+### Overview of *radius_worst*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(radius_worst)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Radius Worst", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Radius Worst by Diagnosis",
+       subtitle = sub_5num(df2$radius_worst))
+```
+
+### Overview of *texture_worst*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(texture_worst)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Texture Worst", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Texture Worst by Diagnosis",
+       subtitle = sub_5num(df2$texture_worst))
+```
+
+### Overview of *perimeter_worst*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(perimeter_worst)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Perimeter Worst", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Perimeter Worst by Diagnosis",
+       subtitle = sub_5num(df2$perimeter_worst))
+```
+
+### Overview of *area_worst*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(area_worst)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Area Worst", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Area Worst by Diagnosis",
+       subtitle = sub_5num(df2$area_worst))
+```
+
+### Overview of *smoothness_worst*
+
+```{r fold_code = T}
+df2 |>
+  ggplot(aes(smoothness_worst)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Smoothness Worst", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Smoothness Worst by Diagnosis",
+       subtitle = sub_5num(df2$smoothness_worst))
+```
+
 ### *worst*-type variables placeholder
 
 

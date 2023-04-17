@@ -545,6 +545,111 @@ df2 |>
 
 ![](README_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
+### Overview of *radius_worst*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(radius_worst)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Radius Worst", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Radius Worst by Diagnosis",
+       subtitle = sub_5num(df2$radius_worst))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+
+### Overview of *texture_worst*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(texture_worst)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Texture Worst", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Texture Worst by Diagnosis",
+       subtitle = sub_5num(df2$texture_worst))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+
+### Overview of *perimeter_worst*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(perimeter_worst)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Perimeter Worst", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Perimeter Worst by Diagnosis",
+       subtitle = sub_5num(df2$perimeter_worst))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
+
+### Overview of *area_worst*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(area_worst)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Area Worst", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Area Worst by Diagnosis",
+       subtitle = sub_5num(df2$area_worst))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
+
+### Overview of *smoothness_worst*
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+df2 |>
+  ggplot(aes(smoothness_worst)) +
+  geom_density(aes(fill = diagnosis), alpha = 0.5, col = "transparent") +
+  custom_fills +
+  labs(x = "Smoothness Worst", y = "Density", fill = "Diagnosis",
+       title = "Distribution of Smoothness Worst by Diagnosis",
+       subtitle = sub_5num(df2$smoothness_worst))
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
+
 ### *worst*-type variables placeholder
 
 ### Script Runtime
@@ -553,4 +658,4 @@ df2 |>
 tictoc::toc()
 ```
 
-    ## 9.12 sec elapsed
+    ## 9.38 sec elapsed
