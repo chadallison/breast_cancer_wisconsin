@@ -503,6 +503,30 @@ test_data = testing(data_split)
 paste0("Training Data: ", nrow(train_data), " Observations; Testing Data: ", nrow(test_data), " Observations")
 ```
 
+### Examining Distribution of *diagnosis* Across Data Splits
+
+```{r}
+train_data |>
+  count(diagnosis) |>
+  mutate(set = "Training Data",
+         pct = round(n / sum(n), 3),
+         pct_lab = paste0(pct * 100, "%")) |>
+  bind_rows(test_data |>
+              count(diagnosis) |>
+              mutate(set = "Testing Data",
+                     pct = round(n / sum(n), 3),
+                     pct_lab = paste0(pct * 100, "%"))) |>
+  mutate(set = factor(set, levels = c("Training Data", "Testing Data"))) |>
+  ggplot(aes(set, pct)) +
+  geom_col(aes(fill = diagnosis), position = "dodge") +
+  geom_text(aes(label = pct_lab), position = position_dodge2(width = 1), vjust = -0.5, size = 3.5) +
+  coord_cartesian(ylim = c(0, 0.65)) +
+  scale_fill_manual(values = c("springgreen4", "indianred3")) +
+  labs(x = "Dataset", y = "Percent of Observations", fill = NULL,
+       title = "Proportional Diagnoses Across Training and Testing Data") +
+  theme(legend.position = "right")
+```
+
 ### Data Preprocessing
 
 ```{r fold_code = T}

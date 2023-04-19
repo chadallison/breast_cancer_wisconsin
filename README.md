@@ -839,6 +839,32 @@ paste0("Training Data: ", nrow(train_data), " Observations; Testing Data: ", nro
 
     ## [1] "Training Data: 454 Observations; Testing Data: 115 Observations"
 
+### Examining Distribution of *diagnosis* Across Data Splits
+
+``` r
+train_data |>
+  count(diagnosis) |>
+  mutate(set = "Training Data",
+         pct = round(n / sum(n), 3),
+         pct_lab = paste0(pct * 100, "%")) |>
+  bind_rows(test_data |>
+              count(diagnosis) |>
+              mutate(set = "Testing Data",
+                     pct = round(n / sum(n), 3),
+                     pct_lab = paste0(pct * 100, "%"))) |>
+  mutate(set = factor(set, levels = c("Training Data", "Testing Data"))) |>
+  ggplot(aes(set, pct)) +
+  geom_col(aes(fill = diagnosis), position = "dodge") +
+  geom_text(aes(label = pct_lab), position = position_dodge2(width = 1), vjust = -0.5, size = 3.5) +
+  coord_cartesian(ylim = c(0, 0.65)) +
+  scale_fill_manual(values = c("springgreen4", "indianred3")) +
+  labs(x = "Dataset", y = "Percent of Observations", fill = NULL,
+       title = "Proportional Diagnoses Across Training and Testing Data") +
+  theme(legend.position = "right")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-40-1.png)<!-- -->
+
 ### Data Preprocessing
 
 <details>
@@ -902,24 +928,24 @@ pre_rec |>
 </details>
 
     ## # A tibble: 10 × 18
-    ##          id texture…¹ area_m…² smoot…³ symmet…⁴ fracta…⁵ radiu…⁶ textu…⁷ smoot…⁸
-    ##       <dbl>     <dbl>    <dbl>   <dbl>    <dbl>    <dbl>   <dbl>   <dbl>   <dbl>
-    ##  1   857793    0.535   0.00571   1.23   0.786    0.677    0.0628 -0.121   -1.13 
-    ##  2 88330202    4.65    0.755     0.125 -0.00955 -0.444    0.474  -0.654   -0.726
-    ##  3  8810955    1.05   -0.126    -0.123  1.54     0.217    0.0560  1.14     1.28 
-    ##  4   912193   -0.293  -0.567    -0.390 -1.27     0.00600 -0.670  -0.0487  -0.709
-    ##  5   899667   -0.0162  0.295     1.99   2.06     1.87     0.416   0.194    0.762
-    ##  6  9113239    0.195  -0.318    -0.961 -0.768    0.216   -0.448  -0.731   -0.703
-    ##  7   866458   -0.674   0.0557    1.33   0.691    0.265    0.0928 -0.270    0.654
-    ##  8  8910988    0.395   2.38     -0.167 -0.331   -0.121    2.75    0.245   -0.451
-    ##  9   862717    1.32   -0.205    -0.105 -0.739   -0.579    0.185   0.133   -0.389
-    ## 10   892438   -0.0906  1.60      1.33  -0.0716   0.386    2.55   -0.101   -0.328
+    ##         id texture_mean area_…¹ smoot…² symme…³ fract…⁴ radius…⁵ textu…⁶ smoot…⁷
+    ##      <dbl>        <dbl>   <dbl>   <dbl>   <dbl>   <dbl>    <dbl>   <dbl>   <dbl>
+    ##  1  864033       -0.535 -1.04    0.522   -0.830   1.11  -0.00783   0.376   2.27 
+    ##  2  922576        0.916 -0.232  -0.277   -0.538  -0.678 -0.213     0.216  -0.391
+    ##  3  926125        1.35   1.97    0.963    1.23    0.849  2.01     -0.346  -0.214
+    ##  4  874662       -0.442 -0.642   0.309   -0.341  -0.708 -0.791     1.29    0.263
+    ##  5  905189       -1.03   0.412  -0.100   -0.279  -0.573 -0.600    -1.05   -1.03 
+    ##  6  864685        0.521 -0.615   0.0938  -0.451  -0.121 -0.337    -0.533   0.254
+    ##  7 8912521       -0.207 -0.471  -0.884   -0.418  -0.602 -0.481     0.241  -0.219
+    ##  8  897132        0.133 -0.760   0.643    0.468  -0.357 -0.388     1.36    1.95 
+    ##  9 9012568       -1.41   0.162  -1.19    -0.331  -1.04  -0.818    -1.46   -0.676
+    ## 10  911384       -1.01   0.0910 -1.09    -0.455  -0.865 -0.579    -1.42   -1.26 
     ## # … with 9 more variables: compactness_se <dbl>, concave_points_se <dbl>,
     ## #   symmetry_se <dbl>, fractal_dimension_se <dbl>, smoothness_worst <dbl>,
     ## #   compactness_worst <dbl>, symmetry_worst <dbl>,
     ## #   fractal_dimension_worst <dbl>, diagnosis <fct>, and abbreviated variable
-    ## #   names ¹​texture_mean, ²​area_mean, ³​smoothness_mean, ⁴​symmetry_mean,
-    ## #   ⁵​fractal_dimension_mean, ⁶​radius_se, ⁷​texture_se, ⁸​smoothness_se
+    ## #   names ¹​area_mean, ²​smoothness_mean, ³​symmetry_mean,
+    ## #   ⁴​fractal_dimension_mean, ⁵​radius_se, ⁶​texture_se, ⁷​smoothness_se
 
 ### Building Cross Validation Folds
 
@@ -955,4 +981,4 @@ cv_folds
 tictoc::toc()
 ```
 
-    ## 12.6 sec elapsed
+    ## 12.45 sec elapsed
