@@ -819,6 +819,134 @@ now move onto the modeling portion.
 
 ### Modeling
 
+------------------------------------------------------------------------
+
+### Data Splitting
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+data_split = initial_split(df2, prop = 0.8, strata = diagnosis)
+train_data = training(data_split)
+test_data = testing(data_split)
+paste0("Training Data: ", nrow(train_data), " Observations; Testing Data: ", nrow(test_data), " Observations")
+```
+
+</details>
+
+    ## [1] "Training Data: 454 Observations; Testing Data: 115 Observations"
+
+### Data Preprocessing
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+pre_rec = recipe(diagnosis ~ ., data = df2) |>
+  update_role(id, new_role = "ID") |>
+  # normalizes predictors
+  step_normalize(all_predictors()) |>
+  # removes predictors with zero variance
+  step_zv(all_predictors()) |>
+  # removes highly-correlated predictors, we can control the threshold at which they are removed
+  step_corr(all_predictors(), threshold = 0.8, method = "spearman")
+
+pre_rec
+```
+
+</details>
+
+    ## 
+
+    ## ── Recipe ──────────────────────────────────────────────────────────────────────
+
+    ## 
+
+    ## ── Inputs
+
+    ## Number of variables by role
+
+    ## outcome:    1
+    ## predictor: 30
+    ## ID:         1
+
+    ## 
+
+    ## ── Operations
+
+    ## • Centering and scaling for: all_predictors()
+
+    ## • Zero variance filter on: all_predictors()
+
+    ## • Correlation filter on: all_predictors()
+
+### Previewing Preprocessed Data
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+pre_rec |>
+  prep() |>
+  juice() |>
+  sample_n(10)
+```
+
+</details>
+
+    ## # A tibble: 10 × 18
+    ##          id texture…¹ area_m…² smoot…³ symmet…⁴ fracta…⁵ radiu…⁶ textu…⁷ smoot…⁸
+    ##       <dbl>     <dbl>    <dbl>   <dbl>    <dbl>    <dbl>   <dbl>   <dbl>   <dbl>
+    ##  1   857793    0.535   0.00571   1.23   0.786    0.677    0.0628 -0.121   -1.13 
+    ##  2 88330202    4.65    0.755     0.125 -0.00955 -0.444    0.474  -0.654   -0.726
+    ##  3  8810955    1.05   -0.126    -0.123  1.54     0.217    0.0560  1.14     1.28 
+    ##  4   912193   -0.293  -0.567    -0.390 -1.27     0.00600 -0.670  -0.0487  -0.709
+    ##  5   899667   -0.0162  0.295     1.99   2.06     1.87     0.416   0.194    0.762
+    ##  6  9113239    0.195  -0.318    -0.961 -0.768    0.216   -0.448  -0.731   -0.703
+    ##  7   866458   -0.674   0.0557    1.33   0.691    0.265    0.0928 -0.270    0.654
+    ##  8  8910988    0.395   2.38     -0.167 -0.331   -0.121    2.75    0.245   -0.451
+    ##  9   862717    1.32   -0.205    -0.105 -0.739   -0.579    0.185   0.133   -0.389
+    ## 10   892438   -0.0906  1.60      1.33  -0.0716   0.386    2.55   -0.101   -0.328
+    ## # … with 9 more variables: compactness_se <dbl>, concave_points_se <dbl>,
+    ## #   symmetry_se <dbl>, fractal_dimension_se <dbl>, smoothness_worst <dbl>,
+    ## #   compactness_worst <dbl>, symmetry_worst <dbl>,
+    ## #   fractal_dimension_worst <dbl>, diagnosis <fct>, and abbreviated variable
+    ## #   names ¹​texture_mean, ²​area_mean, ³​smoothness_mean, ⁴​symmetry_mean,
+    ## #   ⁵​fractal_dimension_mean, ⁶​radius_se, ⁷​texture_se, ⁸​smoothness_se
+
+### Building Cross Validation Folds
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+cv_folds = vfold_cv(train_data, v = 5, strata = diagnosis)
+cv_folds
+```
+
+</details>
+
+    ## #  5-fold cross-validation using stratification 
+    ## # A tibble: 5 × 2
+    ##   splits           id   
+    ##   <list>           <chr>
+    ## 1 <split [363/91]> Fold1
+    ## 2 <split [363/91]> Fold2
+    ## 3 <split [363/91]> Fold3
+    ## 4 <split [363/91]> Fold4
+    ## 5 <split [364/90]> Fold5
+
+### Building Models
+
 *placeholder text*
 
 ### Script Runtime
@@ -827,4 +955,4 @@ now move onto the modeling portion.
 tictoc::toc()
 ```
 
-    ## 11.31 sec elapsed
+    ## 12.6 sec elapsed

@@ -492,7 +492,53 @@ This will conclude the exploratory portion of the analysis, and I will now move 
 
 ### Modeling
 
+___
+
+### Data Splitting
+
+```{r fold_code = T}
+data_split = initial_split(df2, prop = 0.8, strata = diagnosis)
+train_data = training(data_split)
+test_data = testing(data_split)
+paste0("Training Data: ", nrow(train_data), " Observations; Testing Data: ", nrow(test_data), " Observations")
+```
+
+### Data Preprocessing
+
+```{r fold_code = T}
+pre_rec = recipe(diagnosis ~ ., data = df2) |>
+  update_role(id, new_role = "ID") |>
+  # normalizes predictors
+  step_normalize(all_predictors()) |>
+  # removes predictors with zero variance
+  step_zv(all_predictors()) |>
+  # removes highly-correlated predictors, we can control the threshold at which they are removed
+  step_corr(all_predictors(), threshold = 0.8, method = "spearman")
+
+pre_rec
+```
+
+### Previewing Preprocessed Data
+
+```{r fold_code = T}
+pre_rec |>
+  prep() |>
+  juice() |>
+  sample_n(10)
+```
+
+### Building Cross Validation Folds
+
+```{r fold_code = T}
+cv_folds = vfold_cv(train_data, v = 5, strata = diagnosis)
+cv_folds
+```
+
+### Building Models
+
 *placeholder text*
+
+
 
 
 
@@ -508,11 +554,6 @@ This will conclude the exploratory portion of the analysis, and I will now move 
 ```{r}
 tictoc::toc()
 ```
-
-
-
-
-
 
 
 
