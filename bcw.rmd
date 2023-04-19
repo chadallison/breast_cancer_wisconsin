@@ -505,7 +505,7 @@ paste0("Training Data: ", nrow(train_data), " Observations; Testing Data: ", nro
 
 ### Examining Distribution of *diagnosis* Across Data Splits
 
-```{r}
+```{r fold_code = T}
 train_data |>
   count(diagnosis) |>
   mutate(set = "Training Data",

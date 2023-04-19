@@ -841,6 +841,11 @@ paste0("Training Data: ", nrow(train_data), " Observations; Testing Data: ", nro
 
 ### Examining Distribution of *diagnosis* Across Data Splits
 
+<details>
+<summary>
+View Code
+</summary>
+
 ``` r
 train_data |>
   count(diagnosis) |>
@@ -862,6 +867,8 @@ train_data |>
        title = "Proportional Diagnoses Across Training and Testing Data") +
   theme(legend.position = "right")
 ```
+
+</details>
 
 ![](README_files/figure-gfm/unnamed-chunk-40-1.png)<!-- -->
 
@@ -928,18 +935,18 @@ pre_rec |>
 </details>
 
     ## # A tibble: 10 × 18
-    ##         id texture_mean area_…¹ smoot…² symme…³ fract…⁴ radius…⁵ textu…⁶ smoot…⁷
-    ##      <dbl>        <dbl>   <dbl>   <dbl>   <dbl>   <dbl>    <dbl>   <dbl>   <dbl>
-    ##  1  864033       -0.535 -1.04    0.522   -0.830   1.11  -0.00783   0.376   2.27 
-    ##  2  922576        0.916 -0.232  -0.277   -0.538  -0.678 -0.213     0.216  -0.391
-    ##  3  926125        1.35   1.97    0.963    1.23    0.849  2.01     -0.346  -0.214
-    ##  4  874662       -0.442 -0.642   0.309   -0.341  -0.708 -0.791     1.29    0.263
-    ##  5  905189       -1.03   0.412  -0.100   -0.279  -0.573 -0.600    -1.05   -1.03 
-    ##  6  864685        0.521 -0.615   0.0938  -0.451  -0.121 -0.337    -0.533   0.254
-    ##  7 8912521       -0.207 -0.471  -0.884   -0.418  -0.602 -0.481     0.241  -0.219
-    ##  8  897132        0.133 -0.760   0.643    0.468  -0.357 -0.388     1.36    1.95 
-    ##  9 9012568       -1.41   0.162  -1.19    -0.331  -1.04  -0.818    -1.46   -0.676
-    ## 10  911384       -1.01   0.0910 -1.09    -0.455  -0.865 -0.579    -1.42   -1.26 
+    ##          id texture_mean area_…¹ smoot…² symme…³ fract…⁴ radiu…⁵ textu…⁶ smoot…⁷
+    ##       <dbl>        <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+    ##  1   916799       0.300   1.13     0.742   0.176  -0.480   0.504 -0.534  -0.288 
+    ##  2   901088       0.579   1.81    -0.346  -0.706  -1.02    0.624 -0.544  -0.277 
+    ##  3   911201      -1.23   -0.0304   0.963  -0.590  -0.225  -0.358 -0.898  -0.302 
+    ##  4  8810528      -0.0813 -0.645   -0.544  -1.02   -0.316  -0.660 -0.637  -0.508 
+    ##  5    86409       0.0838 -0.0710  -1.28   -0.393   2.11   -0.153  0.495  -0.581 
+    ##  6   922576       0.916  -0.232   -0.277  -0.538  -0.678  -0.213  0.216  -0.391 
+    ##  7    86355       0.0884  2.43     2.58    2.72    1.08    2.92   0.595  -0.175 
+    ##  8  8810987      -0.549  -0.216    0.444   1.07    0.901  -0.537 -0.0414 -0.360 
+    ##  9 90524101       0.319   0.957    0.515   0.658  -0.299   0.175 -0.623   0.0633
+    ## 10   891923      -1.40   -0.205   -0.311  -0.801  -0.521  -0.671 -0.947  -0.897 
     ## # … with 9 more variables: compactness_se <dbl>, concave_points_se <dbl>,
     ## #   symmetry_se <dbl>, fractal_dimension_se <dbl>, smoothness_worst <dbl>,
     ## #   compactness_worst <dbl>, symmetry_worst <dbl>,
@@ -981,4 +988,4 @@ cv_folds
 tictoc::toc()
 ```
 
-    ## 12.45 sec elapsed
+    ## 12.23 sec elapsed
