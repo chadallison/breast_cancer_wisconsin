@@ -935,24 +935,24 @@ pre_rec |>
 </details>
 
     ## # A tibble: 10 × 18
-    ##          id texture_mean area_…¹ smoot…² symme…³ fract…⁴ radiu…⁵ textu…⁶ smoot…⁷
-    ##       <dbl>        <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-    ##  1   859487       -0.651 -0.433   0.139   -0.808 -0.888  -0.607  -0.623    0.307
-    ##  2   911685       -1.09  -0.710   0.586   -0.119  0.417  -0.728  -0.0922  -0.694
-    ##  3   906616       -0.760 -0.701   0.884    0.271  0.0570 -0.575  -0.875   -0.385
-    ##  4 85922302        1.06  -0.443   1.13     0.341  0.439   0.0733 -0.0704   0.246
-    ##  5  8811523       -0.218 -0.633  -0.194    0.567  0.0485 -0.393   0.627    0.610
-    ##  6   923465        1.14  -0.833  -1.03     0.600  0.0683  0.413   1.27     0.407
-    ##  7   914333        0.214  0.0739 -0.0349  -1.18  -0.753  -0.623   0.760   -0.542
-    ##  8   924934        1.93  -0.948  -0.431   -0.797 -0.216  -0.668   1.85     1.67 
-    ##  9   915940       -1.31   0.0111  0.139   -0.265 -0.906   0.0408 -1.08    -0.695
-    ## 10   872608       -0.286 -1.00    0.0448  -0.520  2.60    0.0935  1.89     1.94 
+    ##           id texture_…¹ area_…² smoot…³ symme…⁴ fract…⁵ radius…⁶ textu…⁷ smoot…⁸
+    ##        <dbl>      <dbl>   <dbl>   <dbl>   <dbl>   <dbl>    <dbl>   <dbl>   <dbl>
+    ##  1   8712289     0.639   2.93    -0.851 -0.0387  -1.03   0.934    -0.654  -0.710
+    ##  2    907409    -1.00   -0.913    0.128  0.414    0.900 -0.280    -0.163   0.108
+    ##  3 871001502     0.328  -1.28    -0.164  1.50     2.81  -0.763     1.35    1.79 
+    ##  4    859465    -0.0580 -0.741   -1.06  -1.08    -0.868 -0.478    -0.497   0.746
+    ##  5    861853    -1.05   -0.293   -1.62  -1.55    -1.36   0.00190  -0.116  -0.853
+    ##  6    861799     0.807   0.208   -0.310 -0.345   -0.259 -0.333    -0.681   0.946
+    ##  7  84799002     1.92    0.0111   1.25   1.79     1.13  -0.127    -0.333  -0.478
+    ##  8    859711    -1.08   -1.17     0.105  0.330    3.82   0.436    -0.661   3.39 
+    ##  9    879523    -0.607   0.175   -0.540 -0.794   -0.416 -0.483    -1.55   -0.523
+    ## 10    855563     0.479  -0.806    1.87   0.304    0.836 -0.608     0.383   0.341
     ## # … with 9 more variables: compactness_se <dbl>, concave_points_se <dbl>,
     ## #   symmetry_se <dbl>, fractal_dimension_se <dbl>, smoothness_worst <dbl>,
     ## #   compactness_worst <dbl>, symmetry_worst <dbl>,
     ## #   fractal_dimension_worst <dbl>, diagnosis <fct>, and abbreviated variable
-    ## #   names ¹​area_mean, ²​smoothness_mean, ³​symmetry_mean,
-    ## #   ⁴​fractal_dimension_mean, ⁵​radius_se, ⁶​texture_se, ⁷​smoothness_se
+    ## #   names ¹​texture_mean, ²​area_mean, ³​smoothness_mean, ⁴​symmetry_mean,
+    ## #   ⁵​fractal_dimension_mean, ⁶​radius_se, ⁷​texture_se, ⁸​smoothness_se
 
 ### Building Cross Validation Folds
 
@@ -1038,9 +1038,9 @@ log_res |>
     ## # A tibble: 3 × 3
     ##   .metric   mean std_err
     ##   <chr>    <dbl>   <dbl>
-    ## 1 accuracy 0.947 0.00406
-    ## 2 f_meas   0.958 0.00327
-    ## 3 roc_auc  0.992 0.00220
+    ## 1 accuracy 0.958 0.00638
+    ## 2 f_meas   0.967 0.00542
+    ## 3 roc_auc  0.993 0.00200
 
 ### Building Random Forest Specification and Workflow
 
@@ -1105,9 +1105,9 @@ rf_res |>
     ## # A tibble: 3 × 3
     ##   .metric   mean std_err
     ##   <chr>    <dbl>   <dbl>
-    ## 1 accuracy 0.952 0.00433
-    ## 2 f_meas   0.962 0.00354
-    ## 3 roc_auc  0.990 0.00377
+    ## 1 accuracy 0.958 0.00806
+    ## 2 f_meas   0.967 0.00628
+    ## 3 roc_auc  0.991 0.00207
 
 ### Building XGBoost Specification and Workflow
 
@@ -1169,9 +1169,9 @@ xgb_res |>
     ## # A tibble: 3 × 3
     ##   .metric   mean std_err
     ##   <chr>    <dbl>   <dbl>
-    ## 1 accuracy 0.947 0.00406
-    ## 2 f_meas   0.958 0.00317
-    ## 3 roc_auc  0.984 0.00538
+    ## 1 accuracy 0.943 0.00804
+    ## 2 f_meas   0.955 0.00609
+    ## 3 roc_auc  0.982 0.00465
 
 ### Comparing Model Results
 
@@ -1208,11 +1208,6 @@ log_res |>
 
 ![](README_files/figure-gfm/unnamed-chunk-50-1.png)<!-- -->
 
-For these three metrics, model performance is roughly the same, with the
-only apparent different being the area under the ROC curve for the
-random forest model. I will do some hyperparameter tuning on the random
-forest and XGBoost models to see how that affects performance.
-
 *to be continued :)*
 
 ### Script Runtime
@@ -1221,4 +1216,4 @@ forest and XGBoost models to see how that affects performance.
 tictoc::toc()
 ```
 
-    ## 27.11 sec elapsed
+    ## 23.8 sec elapsed

@@ -665,8 +665,6 @@ log_res |>
   geom_rect(aes(xmin = 0.5, xmax = 2, ymin = 0.975, ymax = 1), col = "black", fill = "transparent")
 ```
 
-For these three metrics, model performance is roughly the same, with the only apparent different being the area under the ROC curve for the random forest model. I will do some hyperparameter tuning on the random forest and XGBoost models to see how that affects performance.
-
 *to be continued :)*
 
 
