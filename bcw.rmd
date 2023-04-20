@@ -558,9 +558,120 @@ cv_folds = vfold_cv(train_data, v = 5, strata = diagnosis)
 cv_folds
 ```
 
-### Building Models
+### Building Logistic Regression Specification and Workflow
 
-*placeholder text*
+```{r fold_code = T}
+log_spec = logistic_reg() |>
+  set_engine("glm") |>
+  set_mode("classification")
+
+log_wflow = workflow() |>
+  add_recipe(pre_rec) |>
+  add_model(log_spec)
+
+log_wflow
+```
+
+### Getting Logistic Regression Results
+
+```{r message = F, warning = F, fold_code = T}
+log_res = log_wflow |>
+  fit_resamples(resamples = cv_folds,
+                metrics = metric_set(accuracy, f_meas, roc_auc),
+                control = control_resamples(save_pred = T))
+
+log_res |>
+  collect_metrics() |>
+  select(.metric, mean, std_err)
+```
+
+### Building Random Forest Specification and Workflow
+
+```{r fold_code = T}
+rf_spec = rand_forest() |>
+  set_engine("ranger", importance = "impurity") |>
+  set_mode("classification")
+
+rf_wflow = workflow() |>
+  add_recipe(pre_rec) |>
+  add_model(rf_spec)
+
+rf_wflow
+```
+
+### Getting Random Forest Results
+
+```{r message = F, warning = F, fold_code = T}
+rf_res = rf_wflow |>
+  fit_resamples(resamples = cv_folds,
+                metrics = metric_set(accuracy, f_meas, roc_auc),
+                control = control_resamples(save_pred = T))
+
+rf_res |>
+  collect_metrics() |>
+  select(.metric, mean, std_err)
+```
+
+### Building XGBoost Specification and Workflow
+
+```{r fold_code = T}
+xgb_spec = boost_tree() |>
+  set_engine("xgboost") |>
+  set_mode("classification")
+
+xgb_wflow = workflow() |>
+  add_recipe(pre_rec) |>
+  add_model(xgb_spec)
+
+xgb_wflow
+```
+
+### Getting XGBoost Results
+
+```{r message = F, warning = F, fold_code = T}
+xgb_res = xgb_wflow |>
+  fit_resamples(resamples = cv_folds,
+                metrics = metric_set(accuracy, f_meas, roc_auc),
+                control = control_resamples(save_pred = T))
+
+xgb_res |>
+  collect_metrics() |>
+  select(.metric, mean, std_err)
+```
+
+### Comparing Model Results
+
+```{r fold_code = T}
+log_res |>
+  collect_metrics() |>
+  select(.metric, mean, std_err) |>
+  mutate(model = "Logistic Regression") |>
+  bind_rows(rf_res |>
+              collect_metrics() |>
+              select(.metric, mean, std_err) |>
+              mutate(model = "Random Forest")) |>
+  bind_rows(xgb_res |>
+              collect_metrics() |>
+              select(.metric, mean, std_err) |>
+              mutate(model = "XGBoost")) |>
+  ggplot(aes(.metric, mean)) +
+  geom_col(aes(fill = model), position = "dodge") +
+  geom_text(aes(label = round(mean, 4)), size = 3.5, position = position_dodge2(width = 0.9), vjust = -0.5) +
+  coord_cartesian(ylim = c(0.9, 1)) +
+  labs(x = "Evaluation Metric", y = "Value", fill = NULL,
+       title = "Evaluation Metrics Across Models") +
+  annotate("text", x = 1.25, y = 0.9875,
+           label = "Please note that for visualization purposes,\nthe y-axis does not start at zero") +
+  geom_rect(aes(xmin = 0.5, xmax = 2, ymin = 0.975, ymax = 1), col = "black", fill = "transparent")
+```
+
+For these three metrics, model performance is roughly the same, with the only apparent different being the area under the ROC curve for the random forest model. I will do some hyperparameter tuning on the random forest and XGBoost models to see how that affects performance.
+
+*to be continued :)*
+
+
+
+
 
 
 

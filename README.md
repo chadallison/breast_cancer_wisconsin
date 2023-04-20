@@ -937,16 +937,16 @@ pre_rec |>
     ## # A tibble: 10 × 18
     ##          id texture_mean area_…¹ smoot…² symme…³ fract…⁴ radiu…⁵ textu…⁶ smoot…⁷
     ##       <dbl>        <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-    ##  1   916799       0.300   1.13     0.742   0.176  -0.480   0.504 -0.534  -0.288 
-    ##  2   901088       0.579   1.81    -0.346  -0.706  -1.02    0.624 -0.544  -0.277 
-    ##  3   911201      -1.23   -0.0304   0.963  -0.590  -0.225  -0.358 -0.898  -0.302 
-    ##  4  8810528      -0.0813 -0.645   -0.544  -1.02   -0.316  -0.660 -0.637  -0.508 
-    ##  5    86409       0.0838 -0.0710  -1.28   -0.393   2.11   -0.153  0.495  -0.581 
-    ##  6   922576       0.916  -0.232   -0.277  -0.538  -0.678  -0.213  0.216  -0.391 
-    ##  7    86355       0.0884  2.43     2.58    2.72    1.08    2.92   0.595  -0.175 
-    ##  8  8810987      -0.549  -0.216    0.444   1.07    0.901  -0.537 -0.0414 -0.360 
-    ##  9 90524101       0.319   0.957    0.515   0.658  -0.299   0.175 -0.623   0.0633
-    ## 10   891923      -1.40   -0.205   -0.311  -0.801  -0.521  -0.671 -0.947  -0.897 
+    ##  1   859487       -0.651 -0.433   0.139   -0.808 -0.888  -0.607  -0.623    0.307
+    ##  2   911685       -1.09  -0.710   0.586   -0.119  0.417  -0.728  -0.0922  -0.694
+    ##  3   906616       -0.760 -0.701   0.884    0.271  0.0570 -0.575  -0.875   -0.385
+    ##  4 85922302        1.06  -0.443   1.13     0.341  0.439   0.0733 -0.0704   0.246
+    ##  5  8811523       -0.218 -0.633  -0.194    0.567  0.0485 -0.393   0.627    0.610
+    ##  6   923465        1.14  -0.833  -1.03     0.600  0.0683  0.413   1.27     0.407
+    ##  7   914333        0.214  0.0739 -0.0349  -1.18  -0.753  -0.623   0.760   -0.542
+    ##  8   924934        1.93  -0.948  -0.431   -0.797 -0.216  -0.668   1.85     1.67 
+    ##  9   915940       -1.31   0.0111  0.139   -0.265 -0.906   0.0408 -1.08    -0.695
+    ## 10   872608       -0.286 -1.00    0.0448  -0.520  2.60    0.0935  1.89     1.94 
     ## # … with 9 more variables: compactness_se <dbl>, concave_points_se <dbl>,
     ## #   symmetry_se <dbl>, fractal_dimension_se <dbl>, smoothness_worst <dbl>,
     ## #   compactness_worst <dbl>, symmetry_worst <dbl>,
@@ -978,9 +978,242 @@ cv_folds
     ## 4 <split [363/91]> Fold4
     ## 5 <split [364/90]> Fold5
 
-### Building Models
+### Building Logistic Regression Specification and Workflow
 
-*placeholder text*
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+log_spec = logistic_reg() |>
+  set_engine("glm") |>
+  set_mode("classification")
+
+log_wflow = workflow() |>
+  add_recipe(pre_rec) |>
+  add_model(log_spec)
+
+log_wflow
+```
+
+</details>
+
+    ## ══ Workflow ════════════════════════════════════════════════════════════════════
+    ## Preprocessor: Recipe
+    ## Model: logistic_reg()
+    ## 
+    ## ── Preprocessor ────────────────────────────────────────────────────────────────
+    ## 3 Recipe Steps
+    ## 
+    ## • step_normalize()
+    ## • step_zv()
+    ## • step_corr()
+    ## 
+    ## ── Model ───────────────────────────────────────────────────────────────────────
+    ## Logistic Regression Model Specification (classification)
+    ## 
+    ## Computational engine: glm
+
+### Getting Logistic Regression Results
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+log_res = log_wflow |>
+  fit_resamples(resamples = cv_folds,
+                metrics = metric_set(accuracy, f_meas, roc_auc),
+                control = control_resamples(save_pred = T))
+
+log_res |>
+  collect_metrics() |>
+  select(.metric, mean, std_err)
+```
+
+</details>
+
+    ## # A tibble: 3 × 3
+    ##   .metric   mean std_err
+    ##   <chr>    <dbl>   <dbl>
+    ## 1 accuracy 0.947 0.00406
+    ## 2 f_meas   0.958 0.00327
+    ## 3 roc_auc  0.992 0.00220
+
+### Building Random Forest Specification and Workflow
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+rf_spec = rand_forest() |>
+  set_engine("ranger", importance = "impurity") |>
+  set_mode("classification")
+
+rf_wflow = workflow() |>
+  add_recipe(pre_rec) |>
+  add_model(rf_spec)
+
+rf_wflow
+```
+
+</details>
+
+    ## ══ Workflow ════════════════════════════════════════════════════════════════════
+    ## Preprocessor: Recipe
+    ## Model: rand_forest()
+    ## 
+    ## ── Preprocessor ────────────────────────────────────────────────────────────────
+    ## 3 Recipe Steps
+    ## 
+    ## • step_normalize()
+    ## • step_zv()
+    ## • step_corr()
+    ## 
+    ## ── Model ───────────────────────────────────────────────────────────────────────
+    ## Random Forest Model Specification (classification)
+    ## 
+    ## Engine-Specific Arguments:
+    ##   importance = impurity
+    ## 
+    ## Computational engine: ranger
+
+### Getting Random Forest Results
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+rf_res = rf_wflow |>
+  fit_resamples(resamples = cv_folds,
+                metrics = metric_set(accuracy, f_meas, roc_auc),
+                control = control_resamples(save_pred = T))
+
+rf_res |>
+  collect_metrics() |>
+  select(.metric, mean, std_err)
+```
+
+</details>
+
+    ## # A tibble: 3 × 3
+    ##   .metric   mean std_err
+    ##   <chr>    <dbl>   <dbl>
+    ## 1 accuracy 0.952 0.00433
+    ## 2 f_meas   0.962 0.00354
+    ## 3 roc_auc  0.990 0.00377
+
+### Building XGBoost Specification and Workflow
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+xgb_spec = boost_tree() |>
+  set_engine("xgboost") |>
+  set_mode("classification")
+
+xgb_wflow = workflow() |>
+  add_recipe(pre_rec) |>
+  add_model(xgb_spec)
+
+xgb_wflow
+```
+
+</details>
+
+    ## ══ Workflow ════════════════════════════════════════════════════════════════════
+    ## Preprocessor: Recipe
+    ## Model: boost_tree()
+    ## 
+    ## ── Preprocessor ────────────────────────────────────────────────────────────────
+    ## 3 Recipe Steps
+    ## 
+    ## • step_normalize()
+    ## • step_zv()
+    ## • step_corr()
+    ## 
+    ## ── Model ───────────────────────────────────────────────────────────────────────
+    ## Boosted Tree Model Specification (classification)
+    ## 
+    ## Computational engine: xgboost
+
+### Getting XGBoost Results
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+xgb_res = xgb_wflow |>
+  fit_resamples(resamples = cv_folds,
+                metrics = metric_set(accuracy, f_meas, roc_auc),
+                control = control_resamples(save_pred = T))
+
+xgb_res |>
+  collect_metrics() |>
+  select(.metric, mean, std_err)
+```
+
+</details>
+
+    ## # A tibble: 3 × 3
+    ##   .metric   mean std_err
+    ##   <chr>    <dbl>   <dbl>
+    ## 1 accuracy 0.947 0.00406
+    ## 2 f_meas   0.958 0.00317
+    ## 3 roc_auc  0.984 0.00538
+
+### Comparing Model Results
+
+<details>
+<summary>
+View Code
+</summary>
+
+``` r
+log_res |>
+  collect_metrics() |>
+  select(.metric, mean, std_err) |>
+  mutate(model = "Logistic Regression") |>
+  bind_rows(rf_res |>
+              collect_metrics() |>
+              select(.metric, mean, std_err) |>
+              mutate(model = "Random Forest")) |>
+  bind_rows(xgb_res |>
+              collect_metrics() |>
+              select(.metric, mean, std_err) |>
+              mutate(model = "XGBoost")) |>
+  ggplot(aes(.metric, mean)) +
+  geom_col(aes(fill = model), position = "dodge") +
+  geom_text(aes(label = round(mean, 4)), size = 3.5, position = position_dodge2(width = 0.9), vjust = -0.5) +
+  coord_cartesian(ylim = c(0.9, 1)) +
+  labs(x = "Evaluation Metric", y = "Value", fill = NULL,
+       title = "Evaluation Metrics Across Models") +
+  annotate("text", x = 1.25, y = 0.9875,
+           label = "Please note that for visualization purposes,\nthe y-axis does not start at zero") +
+  geom_rect(aes(xmin = 0.5, xmax = 2, ymin = 0.975, ymax = 1), col = "black", fill = "transparent")
+```
+
+</details>
+
+![](README_files/figure-gfm/unnamed-chunk-50-1.png)<!-- -->
+
+For these three metrics, model performance is roughly the same, with the
+only apparent different being the area under the ROC curve for the
+random forest model. I will do some hyperparameter tuning on the random
+forest and XGBoost models to see how that affects performance.
+
+*to be continued :)*
 
 ### Script Runtime
 
@@ -988,4 +1221,4 @@ cv_folds
 tictoc::toc()
 ```
 
-    ## 12.23 sec elapsed
+    ## 27.11 sec elapsed
