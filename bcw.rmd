@@ -642,7 +642,7 @@ xgb_res |>
 ### Comparing Model Results
 
 ```{r fold_code = T}
-log_res |>
+three_mod_res = log_res |>
   collect_metrics() |>
   select(.metric, mean, std_err) |>
   mutate(model = "Logistic Regression") |>
@@ -653,19 +653,51 @@ log_res |>
   bind_rows(xgb_res |>
               collect_metrics() |>
               select(.metric, mean, std_err) |>
-              mutate(model = "XGBoost")) |>
+              mutate(model = "XGBoost"))
+
+lr_res = three_mod_res |>
+  filter(model == "Logistic Regression") |>
+  mutate(mean = paste0(round(mean, 4) * 100, "%"))
+
+lr_acc = lr_res$mean[1]
+lr_f1 = lr_res$mean[2]
+lr_roc = lr_res$mean[3]
+
+three_mod_res |>
   ggplot(aes(.metric, mean)) +
   geom_col(aes(fill = model), position = "dodge") +
   geom_text(aes(label = round(mean, 4)), size = 3.5, position = position_dodge2(width = 0.9), vjust = -0.5) +
   coord_cartesian(ylim = c(0.9, 1)) +
   labs(x = "Evaluation Metric", y = "Value", fill = NULL,
-       title = "Evaluation Metrics Across Models") +
-  annotate("text", x = 1.25, y = 0.9875,
-           label = "Please note that for visualization purposes,\nthe y-axis does not start at zero") +
-  geom_rect(aes(xmin = 0.5, xmax = 2, ymin = 0.975, ymax = 1), col = "black", fill = "transparent")
+       title = "Evaluation Metrics Across Models")
 ```
 
-*to be continued :)*
+After this initial modeling step, we have achieved an accuracy of `r lr_acc`, an F1 score of `r lr_f1`, and an AUC value of `r lr_roc` with a logistic regression model. We have achieved similar results with our random forest and XGBoost models as well, and will now tune the hyperparameters for those models to see if we can improve upon our current results.
+
+### Random Forest Tuning
+
+```{r}
+tune_spec = rand_forest(trees = 1000, mtry = tune(), min_n = tune()) |>
+  set_mode("classification") |>
+  set_engine("ranger")
+
+tune_wf = workflow() |>
+  add_recipe(pre_rec) |>
+  add_model(tune_spec)
+
+doParallel::registerDoParallel()
+tune_res = tune_grid(tune_wf, resamples = cv_folds, grid = 25)
+
+tune_res |>
+  collect_metrics() |>
+  group_by(.metric) |>
+  slice_max(mean, n = 5) |>
+  ungroup() |>
+  transmute(min_n_mtry = paste0(min_n, "/", mtry), .metric, mean) |>
+  ggplot(aes(min_n_mtry, mean)) +
+  geom_col(aes(fill = .metric), position = "dodge")
+```
+
 
 
 

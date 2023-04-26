@@ -935,24 +935,24 @@ pre_rec |>
 </details>
 
     ## # A tibble: 10 × 18
-    ##           id texture_…¹ area_…² smoot…³ symme…⁴ fract…⁵ radius…⁶ textu…⁷ smoot…⁸
-    ##        <dbl>      <dbl>   <dbl>   <dbl>   <dbl>   <dbl>    <dbl>   <dbl>   <dbl>
-    ##  1   8712289     0.639   2.93    -0.851 -0.0387  -1.03   0.934    -0.654  -0.710
-    ##  2    907409    -1.00   -0.913    0.128  0.414    0.900 -0.280    -0.163   0.108
-    ##  3 871001502     0.328  -1.28    -0.164  1.50     2.81  -0.763     1.35    1.79 
-    ##  4    859465    -0.0580 -0.741   -1.06  -1.08    -0.868 -0.478    -0.497   0.746
-    ##  5    861853    -1.05   -0.293   -1.62  -1.55    -1.36   0.00190  -0.116  -0.853
-    ##  6    861799     0.807   0.208   -0.310 -0.345   -0.259 -0.333    -0.681   0.946
-    ##  7  84799002     1.92    0.0111   1.25   1.79     1.13  -0.127    -0.333  -0.478
-    ##  8    859711    -1.08   -1.17     0.105  0.330    3.82   0.436    -0.661   3.39 
-    ##  9    879523    -0.607   0.175   -0.540 -0.794   -0.416 -0.483    -1.55   -0.523
-    ## 10    855563     0.479  -0.806    1.87   0.304    0.836 -0.608     0.383   0.341
+    ##         id texture_mean area_m…¹ smoot…² symme…³ fract…⁴ radiu…⁵ textu…⁶ smoot…⁷
+    ##      <dbl>        <dbl>    <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+    ##  1 8910748      -1.45    -0.758    0.141  -0.155 -0.0138 -0.774  -1.25   -0.190 
+    ##  2  884180       0.979    1.42     0.451   0.607 -0.396   0.430   1.06    1.19  
+    ##  3  881972      -0.0487   0.682    1.26    1.17   0.0641 -0.394  -0.975  -0.503 
+    ##  4  903507       0.158    0.255    1.40    0.428  0.658   0.872   0.207   0.0759
+    ##  5 9110732       2.03     0.928    0.257  -0.360 -0.515  -0.0558 -0.254  -0.775 
+    ##  6  855625       1.28     1.28    -0.395   1.82   0.0896  2.08    0.814  -0.164 
+    ##  7 8810703      -0.191    5.24     1.27   -0.597 -1.07    8.90    0.470   2.13  
+    ##  8  922577      -0.683   -0.938   -0.144   0.268 -0.112  -0.702  -0.453   0.0150
+    ##  9  858986       0.665   -0.0261   0.607   0.501  1.43    1.08    0.0927  0.788 
+    ## 10  863270      -0.174   -0.535   -0.824  -0.765 -0.303  -1.03   -0.585  -1.19  
     ## # … with 9 more variables: compactness_se <dbl>, concave_points_se <dbl>,
     ## #   symmetry_se <dbl>, fractal_dimension_se <dbl>, smoothness_worst <dbl>,
     ## #   compactness_worst <dbl>, symmetry_worst <dbl>,
     ## #   fractal_dimension_worst <dbl>, diagnosis <fct>, and abbreviated variable
-    ## #   names ¹​texture_mean, ²​area_mean, ³​smoothness_mean, ⁴​symmetry_mean,
-    ## #   ⁵​fractal_dimension_mean, ⁶​radius_se, ⁷​texture_se, ⁸​smoothness_se
+    ## #   names ¹​area_mean, ²​smoothness_mean, ³​symmetry_mean,
+    ## #   ⁴​fractal_dimension_mean, ⁵​radius_se, ⁶​texture_se, ⁷​smoothness_se
 
 ### Building Cross Validation Folds
 
@@ -1038,9 +1038,9 @@ log_res |>
     ## # A tibble: 3 × 3
     ##   .metric   mean std_err
     ##   <chr>    <dbl>   <dbl>
-    ## 1 accuracy 0.958 0.00638
-    ## 2 f_meas   0.967 0.00542
-    ## 3 roc_auc  0.993 0.00200
+    ## 1 accuracy 0.954 0.0128 
+    ## 2 f_meas   0.963 0.0100 
+    ## 3 roc_auc  0.988 0.00568
 
 ### Building Random Forest Specification and Workflow
 
@@ -1105,9 +1105,9 @@ rf_res |>
     ## # A tibble: 3 × 3
     ##   .metric   mean std_err
     ##   <chr>    <dbl>   <dbl>
-    ## 1 accuracy 0.958 0.00806
-    ## 2 f_meas   0.967 0.00628
-    ## 3 roc_auc  0.991 0.00207
+    ## 1 accuracy 0.947 0.0146 
+    ## 2 f_meas   0.959 0.0107 
+    ## 3 roc_auc  0.989 0.00492
 
 ### Building XGBoost Specification and Workflow
 
@@ -1169,9 +1169,9 @@ xgb_res |>
     ## # A tibble: 3 × 3
     ##   .metric   mean std_err
     ##   <chr>    <dbl>   <dbl>
-    ## 1 accuracy 0.943 0.00804
-    ## 2 f_meas   0.955 0.00609
-    ## 3 roc_auc  0.982 0.00465
+    ## 1 accuracy 0.940 0.0162 
+    ## 2 f_meas   0.954 0.0120 
+    ## 3 roc_auc  0.983 0.00644
 
 ### Comparing Model Results
 
@@ -1181,7 +1181,7 @@ View Code
 </summary>
 
 ``` r
-log_res |>
+three_mod_res = log_res |>
   collect_metrics() |>
   select(.metric, mean, std_err) |>
   mutate(model = "Logistic Regression") |>
@@ -1192,23 +1192,65 @@ log_res |>
   bind_rows(xgb_res |>
               collect_metrics() |>
               select(.metric, mean, std_err) |>
-              mutate(model = "XGBoost")) |>
+              mutate(model = "XGBoost"))
+
+lr_res = three_mod_res |>
+  filter(model == "Logistic Regression") |>
+  mutate(mean = paste0(round(mean, 4) * 100, "%"))
+
+lr_acc = lr_res$mean[1]
+lr_f1 = lr_res$mean[2]
+lr_roc = lr_res$mean[3]
+
+three_mod_res |>
   ggplot(aes(.metric, mean)) +
   geom_col(aes(fill = model), position = "dodge") +
   geom_text(aes(label = round(mean, 4)), size = 3.5, position = position_dodge2(width = 0.9), vjust = -0.5) +
   coord_cartesian(ylim = c(0.9, 1)) +
   labs(x = "Evaluation Metric", y = "Value", fill = NULL,
-       title = "Evaluation Metrics Across Models") +
-  annotate("text", x = 1.25, y = 0.9875,
-           label = "Please note that for visualization purposes,\nthe y-axis does not start at zero") +
-  geom_rect(aes(xmin = 0.5, xmax = 2, ymin = 0.975, ymax = 1), col = "black", fill = "transparent")
+       title = "Evaluation Metrics Across Models")
 ```
 
 </details>
 
 ![](README_files/figure-gfm/unnamed-chunk-50-1.png)<!-- -->
 
-*to be continued :)*
+After this initial modeling step, we have achieved an accuracy of
+95.37%, an F1 score of 96.35%, and an AUC value of 98.85% with a
+logistic regression model. We have achieved similar results with our
+random forest and XGBoost models as well, and will now tune the
+hyperparameters for those models to see if we can improve upon our
+current results.
+
+### Random Forest Tuning
+
+``` r
+tune_spec = rand_forest(trees = 1000, mtry = tune(), min_n = tune()) |>
+  set_mode("classification") |>
+  set_engine("ranger")
+
+tune_wf = workflow() |>
+  add_recipe(pre_rec) |>
+  add_model(tune_spec)
+
+doParallel::registerDoParallel()
+tune_res = tune_grid(tune_wf, resamples = cv_folds, grid = 25)
+```
+
+    ## i Creating pre-processing data to finalize unknown parameter: mtry
+
+``` r
+tune_res |>
+  collect_metrics() |>
+  group_by(.metric) |>
+  slice_max(mean, n = 5) |>
+  ungroup() |>
+  transmute(min_n_mtry = paste0(min_n, "/", mtry), .metric, mean) |>
+  ggplot(aes(min_n_mtry, mean)) +
+  geom_col(aes(fill = .metric), position = "dodge")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-51-1.png)<!-- -->
 
 ### Script Runtime
 
@@ -1216,4 +1258,4 @@ log_res |>
 tictoc::toc()
 ```
 
-    ## 23.8 sec elapsed
+    ## 57.86 sec elapsed
