@@ -689,15 +689,34 @@ doParallel::registerDoParallel()
 tune_res = tune_grid(tune_wf, resamples = cv_folds, grid = 25)
 
 tune_res |>
-  collect_metrics() |>
-  group_by(.metric) |>
-  slice_max(mean, n = 5) |>
-  ungroup() |>
-  transmute(min_n_mtry = paste0(min_n, "/", mtry), .metric, mean) |>
-  ggplot(aes(min_n_mtry, mean)) +
-  geom_col(aes(fill = .metric), position = "dodge")
+  show_best("roc_auc")
 ```
 
+### XGBoost Tuning
+
+```{r}
+xgb_spec = boost_tree(trees = 1000, tree_depth = tune(), min_n = tune(),
+                      loss_reduction = tune(), sample_size = tune(),
+                      mtry = tune(), learn_rate = tune()) |>
+  set_engine("xgboost") |>
+  set_mode("classification")
+
+xgb_grid = grid_latin_hypercube(tree_depth(), min_n(), loss_reduction(),
+                                sample_size = sample_prop(), finalize(mtry(), train_data),
+                                learn_rate(), size = 30)
+
+xgb_wf = workflow() |>
+  add_recipe(pre_rec) |>
+  add_model(xgb_spec)
+
+doParallel::registerDoParallel()
+xgb_res = tune_grid(xgb_wf, resamples = cv_folds, grid = xgb_grid, control = control_grid(save_pred = T))
+
+xgb_res |>
+  show_best("roc_auc")
+```
+
+*to be continued :)*
 
 
 
