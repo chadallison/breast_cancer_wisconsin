@@ -935,24 +935,24 @@ pre_rec |>
 </details>
 
     ## # A tibble: 10 × 18
-    ##          id texture_m…¹ area_…² smoot…³ symme…⁴ fract…⁵ radiu…⁶ textur…⁷ smoot…⁸
-    ##       <dbl>       <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>    <dbl>   <dbl>
-    ##  1 91762702       0.537  3.37    0.472   0.654   0.650    2.11  -0.574    -0.683
-    ##  2   919537      -0.388 -0.822   0.0362 -0.703   0.182   -0.918  0.664     0.819
-    ##  3   897630       0.498  1.24   -0.370   0.516  -0.279    0.855  0.568     0.169
-    ##  4   914862      -0.593  0.0981  0.176  -0.524   0.835   -0.120 -0.679    -0.972
-    ##  5 88649001       2.20   1.57   -0.267   0.297  -0.0676   1.58  -0.0324   -0.228
-    ##  6  8910506      -0.716 -0.405  -0.150   0.724  -0.723   -0.615  0.00389  -0.507
-    ##  7  8510824      -1.59  -1.08    0.429   0.0123  0.886   -0.461 -0.435     0.854
-    ##  8   857392      -0.137  1.07    1.31    1.02    0.0428   1.55   0.682    -1.05 
-    ##  9   919555       0.365  1.86    0.586   1.15   -0.0407   1.06  -0.411    -0.820
-    ## 10  8712729      -0.114  0.658  -0.548   0.297  -1.06     0.699  0.316    -0.306
+    ##          id texture_mean area_…¹ smoot…² symme…³ fract…⁴ radiu…⁵ textu…⁶ smoot…⁷
+    ##       <dbl>        <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+    ##  1   884948       0.993   2.02    0.309   1.43    -0.541   2.16   -0.718  -0.586
+    ##  2   901041       0.530  -0.309  -0.749   0.0123  -0.827  -0.516   0.584  -0.514
+    ##  3    87163       0.0791 -0.254  -0.418  -0.779   -0.862   0.233  -0.127  -0.346
+    ##  4   925311       2.34   -0.764  -1.56   -2.74    -1.10   -0.328   4.86    0.184
+    ##  5   924084       2.36   -0.418  -0.967  -0.994   -0.910  -0.592   0.272   0.598
+    ##  6 84610002      -0.325   0.358   0.0526  0.111   -0.280   0.363  -0.420  -0.423
+    ##  7   914102       0.291  -0.330  -1.64   -0.360   -0.555  -0.294   0.464   0.253
+    ##  8 84799002       1.92    0.0111  1.25    1.79     1.13   -0.127  -0.333  -0.478
+    ##  9  8911670       0.161   1.27   -0.507  -0.954   -1.82   -0.277  -0.705   0.177
+    ## 10   901549      -1.47   -0.763   1.94    0.753    0.898  -0.537  -0.419  -0.135
     ## # … with 9 more variables: compactness_se <dbl>, concave_points_se <dbl>,
     ## #   symmetry_se <dbl>, fractal_dimension_se <dbl>, smoothness_worst <dbl>,
     ## #   compactness_worst <dbl>, symmetry_worst <dbl>,
     ## #   fractal_dimension_worst <dbl>, diagnosis <fct>, and abbreviated variable
-    ## #   names ¹​texture_mean, ²​area_mean, ³​smoothness_mean, ⁴​symmetry_mean,
-    ## #   ⁵​fractal_dimension_mean, ⁶​radius_se, ⁷​texture_se, ⁸​smoothness_se
+    ## #   names ¹​area_mean, ²​smoothness_mean, ³​symmetry_mean,
+    ## #   ⁴​fractal_dimension_mean, ⁵​radius_se, ⁶​texture_se, ⁷​smoothness_se
 
 ### Building Cross Validation Folds
 
@@ -1038,9 +1038,9 @@ log_res |>
     ## # A tibble: 3 × 3
     ##   .metric   mean std_err
     ##   <chr>    <dbl>   <dbl>
-    ## 1 accuracy 0.952 0.0102 
-    ## 2 f_meas   0.962 0.00795
-    ## 3 roc_auc  0.984 0.00603
+    ## 1 accuracy 0.938  0.0172
+    ## 2 f_meas   0.950  0.0139
+    ## 3 roc_auc  0.964  0.0201
 
 ### Building Random Forest Specification and Workflow
 
@@ -1105,9 +1105,9 @@ rf_res |>
     ## # A tibble: 3 × 3
     ##   .metric   mean std_err
     ##   <chr>    <dbl>   <dbl>
-    ## 1 accuracy 0.960 0.00437
-    ## 2 f_meas   0.969 0.00337
-    ## 3 roc_auc  0.989 0.00506
+    ## 1 accuracy 0.947 0.00637
+    ## 2 f_meas   0.959 0.00462
+    ## 3 roc_auc  0.990 0.00336
 
 ### Building XGBoost Specification and Workflow
 
@@ -1169,9 +1169,9 @@ xgb_res |>
     ## # A tibble: 3 × 3
     ##   .metric   mean std_err
     ##   <chr>    <dbl>   <dbl>
-    ## 1 accuracy 0.956 0.00774
-    ## 2 f_meas   0.965 0.00620
-    ## 3 roc_auc  0.986 0.00732
+    ## 1 accuracy 0.954 0.00418
+    ## 2 f_meas   0.964 0.00316
+    ## 3 roc_auc  0.987 0.00434
 
 ### Comparing Model Results
 
@@ -1216,7 +1216,7 @@ three_mod_res |>
 ![](README_files/figure-gfm/unnamed-chunk-50-1.png)<!-- -->
 
 After this initial modeling step, we have achieved an accuracy of
-95.16%, an F1 score of 96.17%, and an AUC value of 98.39% with a
+93.84%, an F1 score of 95.01%, and an AUC value of 96.44% with a
 logistic regression model. We have achieved similar results with our
 random forest and XGBoost models as well, and will now tune the
 hyperparameters for those models to see if we can improve upon our
@@ -1241,17 +1241,17 @@ tune_res = tune_grid(tune_wf, resamples = cv_folds, grid = 25)
 
 ``` r
 tune_res |>
-  show_best("roc_auc")
+  show_best("accuracy")
 ```
 
     ## # A tibble: 5 × 8
-    ##    mtry min_n .metric .estimator  mean     n std_err .config              
-    ##   <int> <int> <chr>   <chr>      <dbl> <int>   <dbl> <chr>                
-    ## 1     2     7 roc_auc binary     0.992     5 0.00473 Preprocessor1_Model01
-    ## 2     2     6 roc_auc binary     0.992     5 0.00445 Preprocessor1_Model16
-    ## 3     2    11 roc_auc binary     0.990     5 0.00515 Preprocessor1_Model02
-    ## 4     3    31 roc_auc binary     0.988     5 0.00524 Preprocessor1_Model08
-    ## 5     7     3 roc_auc binary     0.988     5 0.00493 Preprocessor1_Model03
+    ##    mtry min_n .metric  .estimator  mean     n std_err .config              
+    ##   <int> <int> <chr>    <chr>      <dbl> <int>   <dbl> <chr>                
+    ## 1     1    28 accuracy binary     0.941     5 0.00889 Preprocessor1_Model05
+    ## 2     3    24 accuracy binary     0.941     5 0.00654 Preprocessor1_Model23
+    ## 3     3    35 accuracy binary     0.941     5 0.00437 Preprocessor1_Model21
+    ## 4     4     8 accuracy binary     0.941     5 0.00445 Preprocessor1_Model22
+    ## 5    10    25 accuracy binary     0.940     5 0.00901 Preprocessor1_Model16
 
 ### XGBoost Tuning
 
@@ -1280,15 +1280,54 @@ xgb_res |>
     ## # A tibble: 5 × 12
     ##    mtry min_n tree_depth learn_rate loss_r…¹ sampl…² .metric .esti…³  mean     n
     ##   <int> <int>      <int>      <dbl>    <dbl>   <dbl> <chr>   <chr>   <dbl> <int>
-    ## 1     6    11         13    2.37e-3 5.77e+ 0   0.706 roc_auc binary  0.980     5
-    ## 2    18    18         14    5.95e-3 3.93e-10   0.832 roc_auc binary  0.977     5
-    ## 3    12     4         10    7.01e-3 2.27e- 8   0.151 roc_auc binary  0.975     5
-    ## 4     1    23          3    4.47e-2 7.02e- 8   0.906 roc_auc binary  0.973     5
-    ## 5    11     5          7    1.39e-9 5.01e- 7   0.505 roc_auc binary  0.972     5
+    ## 1     5    11          8    2.88e-2 4.26e- 8   0.907 roc_auc binary  0.987     5
+    ## 2    21     7         10    1.44e-2 1.44e- 6   0.369 roc_auc binary  0.986     5
+    ## 3     3    18          4    1.32e-8 1.11e-10   0.676 roc_auc binary  0.979     5
+    ## 4    11     3          8    6.23e-4 3.39e- 5   0.410 roc_auc binary  0.978     5
+    ## 5     7    16         12    1.89e-5 1.62e- 4   0.771 roc_auc binary  0.976     5
     ## # … with 2 more variables: std_err <dbl>, .config <chr>, and abbreviated
     ## #   variable names ¹​loss_reduction, ²​sample_size, ³​.estimator
 
-*to be continued :)*
+### Post-Tuning Model Comparison
+
+``` r
+lr_acc = collect_metrics(log_res) |>
+  filter(.metric == "accuracy") |>
+  pull(mean) |>
+  round(4)
+
+lr_auc = collect_metrics(log_res) |>
+  filter(.metric == "roc_auc") |>
+  pull(mean) |>
+  round(4)
+
+rf_acc = show_best(tune_res, metric = "accuracy", n = 1) |>
+  pull(mean) |>
+  round(4)
+
+rf_auc = show_best(tune_res, metric = "roc_auc", n = 1) |>
+  pull(mean) |>
+  round(4)
+
+xgb_acc = show_best(xgb_res, metric = "accuracy", n = 1) |>
+  pull(mean) |>
+  round(4)
+
+xgb_auc = show_best(xgb_res, metric = "roc_auc", n = 1) |>
+  pull(mean) |>
+  round(4)
+
+data.frame(model = c("Logistic Regression", "Random Forest", "XGBoost"),
+           accuracy = c(lr_acc, rf_acc, xgb_acc),
+           roc_auc = c(lr_auc, rf_auc, xgb_auc)) |>
+  pivot_longer(!model, names_to = "metric", values_to = "value") |>
+  ggplot(aes(metric, value)) +
+  geom_col(aes(fill = model), position = "dodge") +
+  geom_text(aes(label = value), position = position_dodge2(width = 0.9), vjust = -0.5, size = 3.5) +
+  labs(title = "Post-Tuning Model Comparison", fill = NULL, x = "Evaluation Metric", y = "Value")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-53-1.png)<!-- -->
 
 ### Script Runtime
 
@@ -1296,4 +1335,4 @@ xgb_res |>
 tictoc::toc()
 ```
 
-    ## 135.72 sec elapsed
+    ## 118.2 sec elapsed

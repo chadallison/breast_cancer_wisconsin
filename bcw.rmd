@@ -689,7 +689,7 @@ doParallel::registerDoParallel()
 tune_res = tune_grid(tune_wf, resamples = cv_folds, grid = 25)
 
 tune_res |>
-  show_best("roc_auc")
+  show_best("accuracy")
 ```
 
 ### XGBoost Tuning
@@ -716,7 +716,45 @@ xgb_res |>
   show_best("roc_auc")
 ```
 
-*to be continued :)*
+### Post-Tuning Model Comparison
+
+```{r}
+lr_acc = collect_metrics(log_res) |>
+  filter(.metric == "accuracy") |>
+  pull(mean) |>
+  round(4)
+
+lr_auc = collect_metrics(log_res) |>
+  filter(.metric == "roc_auc") |>
+  pull(mean) |>
+  round(4)
+
+rf_acc = show_best(tune_res, metric = "accuracy", n = 1) |>
+  pull(mean) |>
+  round(4)
+
+rf_auc = show_best(tune_res, metric = "roc_auc", n = 1) |>
+  pull(mean) |>
+  round(4)
+
+xgb_acc = show_best(xgb_res, metric = "accuracy", n = 1) |>
+  pull(mean) |>
+  round(4)
+
+xgb_auc = show_best(xgb_res, metric = "roc_auc", n = 1) |>
+  pull(mean) |>
+  round(4)
+
+data.frame(model = c("Logistic Regression", "Random Forest", "XGBoost"),
+           accuracy = c(lr_acc, rf_acc, xgb_acc),
+           roc_auc = c(lr_auc, rf_auc, xgb_auc)) |>
+  pivot_longer(!model, names_to = "metric", values_to = "value") |>
+  ggplot(aes(metric, value)) +
+  geom_col(aes(fill = model), position = "dodge") +
+  geom_text(aes(label = value), position = position_dodge2(width = 0.9), vjust = -0.5, size = 3.5) +
+  labs(title = "Post-Tuning Model Comparison", fill = NULL, x = "Evaluation Metric", y = "Value")
+```
+
 
 
 
