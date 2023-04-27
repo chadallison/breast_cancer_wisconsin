@@ -676,7 +676,7 @@ After this initial modeling step, we have achieved an accuracy of `r lr_acc`, an
 
 ### Random Forest Tuning
 
-```{r}
+```{r fold_code = T}
 tune_spec = rand_forest(trees = 1000, mtry = tune(), min_n = tune()) |>
   set_mode("classification") |>
   set_engine("ranger")
@@ -694,7 +694,7 @@ tune_res |>
 
 ### XGBoost Tuning
 
-```{r}
+```{r fold_code = T}
 xgb_spec = boost_tree(trees = 1000, tree_depth = tune(), min_n = tune(),
                       loss_reduction = tune(), sample_size = tune(),
                       mtry = tune(), learn_rate = tune()) |>
@@ -718,7 +718,7 @@ xgb_res |>
 
 ### Post-Tuning Model Comparison
 
-```{r}
+```{r fold_code = T}
 lr_acc = collect_metrics(log_res) |>
   filter(.metric == "accuracy") |>
   pull(mean) |>

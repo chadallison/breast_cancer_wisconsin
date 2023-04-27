@@ -935,24 +935,24 @@ pre_rec |>
 </details>
 
     ## # A tibble: 10 × 18
-    ##          id texture_mean area_…¹ smoot…² symme…³ fract…⁴ radiu…⁵ textu…⁶ smoot…⁷
-    ##       <dbl>        <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-    ##  1   884948       0.993   2.02    0.309   1.43    -0.541   2.16   -0.718  -0.586
-    ##  2   901041       0.530  -0.309  -0.749   0.0123  -0.827  -0.516   0.584  -0.514
-    ##  3    87163       0.0791 -0.254  -0.418  -0.779   -0.862   0.233  -0.127  -0.346
-    ##  4   925311       2.34   -0.764  -1.56   -2.74    -1.10   -0.328   4.86    0.184
-    ##  5   924084       2.36   -0.418  -0.967  -0.994   -0.910  -0.592   0.272   0.598
-    ##  6 84610002      -0.325   0.358   0.0526  0.111   -0.280   0.363  -0.420  -0.423
-    ##  7   914102       0.291  -0.330  -1.64   -0.360   -0.555  -0.294   0.464   0.253
-    ##  8 84799002       1.92    0.0111  1.25    1.79     1.13   -0.127  -0.333  -0.478
-    ##  9  8911670       0.161   1.27   -0.507  -0.954   -1.82   -0.277  -0.705   0.177
-    ## 10   901549      -1.47   -0.763   1.94    0.753    0.898  -0.537  -0.419  -0.135
+    ##           id texture_…¹ area_…² smooth…³ symme…⁴ fract…⁵ radiu…⁶ textu…⁷ smoot…⁸
+    ##        <dbl>      <dbl>   <dbl>    <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+    ##  1   8911834     -0.956  -0.192 -0.0853    1.09  -0.604  -0.567  -0.539   -0.935
+    ##  2   8810158      0.756  -0.357  0.273     0.140  1.46   -0.765  -0.534   -0.596
+    ##  3  84667401      0.772  -0.218  1.19      0.939  1.99   -0.696  -0.0867  -0.204
+    ##  4    884689     -1.01   -0.706  0.351     0.260 -0.158  -0.537  -0.324   -0.126
+    ##  5   9113514     -0.277  -1.05  -0.942    -0.480  0.187  -0.229   0.172    1.31 
+    ##  6   8812816     -1.43   -0.244  0.00709  -1.65   0.0910 -0.703  -1.42    -0.969
+    ##  7 911320502     -0.249  -0.334 -1.54     -1.30  -1.04   -0.732  -0.964   -0.357
+    ##  8    895299     -0.316  -0.594 -1.39     -1.57  -0.297  -0.619  -0.557   -0.770
+    ##  9    921092      1.44   -1.35  -1.09      0.213  1.42   -0.0991  0.444    1.87 
+    ## 10   8810436     -1.48    0.201 -1.03     -1.65  -1.07   -0.692  -1.55    -0.916
     ## # … with 9 more variables: compactness_se <dbl>, concave_points_se <dbl>,
     ## #   symmetry_se <dbl>, fractal_dimension_se <dbl>, smoothness_worst <dbl>,
     ## #   compactness_worst <dbl>, symmetry_worst <dbl>,
     ## #   fractal_dimension_worst <dbl>, diagnosis <fct>, and abbreviated variable
-    ## #   names ¹​area_mean, ²​smoothness_mean, ³​symmetry_mean,
-    ## #   ⁴​fractal_dimension_mean, ⁵​radius_se, ⁶​texture_se, ⁷​smoothness_se
+    ## #   names ¹​texture_mean, ²​area_mean, ³​smoothness_mean, ⁴​symmetry_mean,
+    ## #   ⁵​fractal_dimension_mean, ⁶​radius_se, ⁷​texture_se, ⁸​smoothness_se
 
 ### Building Cross Validation Folds
 
@@ -1038,9 +1038,9 @@ log_res |>
     ## # A tibble: 3 × 3
     ##   .metric   mean std_err
     ##   <chr>    <dbl>   <dbl>
-    ## 1 accuracy 0.938  0.0172
-    ## 2 f_meas   0.950  0.0139
-    ## 3 roc_auc  0.964  0.0201
+    ## 1 accuracy 0.956 0.00597
+    ## 2 f_meas   0.965 0.00488
+    ## 3 roc_auc  0.990 0.00372
 
 ### Building Random Forest Specification and Workflow
 
@@ -1105,9 +1105,9 @@ rf_res |>
     ## # A tibble: 3 × 3
     ##   .metric   mean std_err
     ##   <chr>    <dbl>   <dbl>
-    ## 1 accuracy 0.947 0.00637
-    ## 2 f_meas   0.959 0.00462
-    ## 3 roc_auc  0.990 0.00336
+    ## 1 accuracy 0.938 0.0145 
+    ## 2 f_meas   0.952 0.0109 
+    ## 3 roc_auc  0.988 0.00454
 
 ### Building XGBoost Specification and Workflow
 
@@ -1169,9 +1169,9 @@ xgb_res |>
     ## # A tibble: 3 × 3
     ##   .metric   mean std_err
     ##   <chr>    <dbl>   <dbl>
-    ## 1 accuracy 0.954 0.00418
-    ## 2 f_meas   0.964 0.00316
-    ## 3 roc_auc  0.987 0.00434
+    ## 1 accuracy 0.947 0.0145 
+    ## 2 f_meas   0.958 0.0111 
+    ## 3 roc_auc  0.987 0.00586
 
 ### Comparing Model Results
 
@@ -1215,14 +1215,18 @@ three_mod_res |>
 
 ![](README_files/figure-gfm/unnamed-chunk-50-1.png)<!-- -->
 
-After this initial modeling step, we have achieved an accuracy of
-93.84%, an F1 score of 95.01%, and an AUC value of 96.44% with a
-logistic regression model. We have achieved similar results with our
-random forest and XGBoost models as well, and will now tune the
-hyperparameters for those models to see if we can improve upon our
-current results.
+After this initial modeling step, we have achieved an accuracy of 95.6%,
+an F1 score of 96.49%, and an AUC value of 98.96% with a logistic
+regression model. We have achieved similar results with our random
+forest and XGBoost models as well, and will now tune the hyperparameters
+for those models to see if we can improve upon our current results.
 
 ### Random Forest Tuning
+
+<details>
+<summary>
+View Code
+</summary>
 
 ``` r
 tune_spec = rand_forest(trees = 1000, mtry = tune(), min_n = tune()) |>
@@ -1237,23 +1241,37 @@ doParallel::registerDoParallel()
 tune_res = tune_grid(tune_wf, resamples = cv_folds, grid = 25)
 ```
 
+</details>
+
     ## i Creating pre-processing data to finalize unknown parameter: mtry
+
+<details>
+<summary>
+View Code
+</summary>
 
 ``` r
 tune_res |>
   show_best("accuracy")
 ```
 
+</details>
+
     ## # A tibble: 5 × 8
     ##    mtry min_n .metric  .estimator  mean     n std_err .config              
     ##   <int> <int> <chr>    <chr>      <dbl> <int>   <dbl> <chr>                
-    ## 1     1    28 accuracy binary     0.941     5 0.00889 Preprocessor1_Model05
-    ## 2     3    24 accuracy binary     0.941     5 0.00654 Preprocessor1_Model23
-    ## 3     3    35 accuracy binary     0.941     5 0.00437 Preprocessor1_Model21
-    ## 4     4     8 accuracy binary     0.941     5 0.00445 Preprocessor1_Model22
-    ## 5    10    25 accuracy binary     0.940     5 0.00901 Preprocessor1_Model16
+    ## 1     2    11 accuracy binary     0.945     5  0.0125 Preprocessor1_Model20
+    ## 2     2    18 accuracy binary     0.941     5  0.0141 Preprocessor1_Model04
+    ## 3     9     5 accuracy binary     0.941     5  0.0169 Preprocessor1_Model06
+    ## 4    14     8 accuracy binary     0.938     5  0.0169 Preprocessor1_Model16
+    ## 5     5    16 accuracy binary     0.938     5  0.0189 Preprocessor1_Model18
 
 ### XGBoost Tuning
+
+<details>
+<summary>
+View Code
+</summary>
 
 ``` r
 xgb_spec = boost_tree(trees = 1000, tree_depth = tune(), min_n = tune(),
@@ -1277,18 +1295,25 @@ xgb_res |>
   show_best("roc_auc")
 ```
 
+</details>
+
     ## # A tibble: 5 × 12
     ##    mtry min_n tree_depth learn_rate loss_r…¹ sampl…² .metric .esti…³  mean     n
     ##   <int> <int>      <int>      <dbl>    <dbl>   <dbl> <chr>   <chr>   <dbl> <int>
-    ## 1     5    11          8    2.88e-2 4.26e- 8   0.907 roc_auc binary  0.987     5
-    ## 2    21     7         10    1.44e-2 1.44e- 6   0.369 roc_auc binary  0.986     5
-    ## 3     3    18          4    1.32e-8 1.11e-10   0.676 roc_auc binary  0.979     5
-    ## 4    11     3          8    6.23e-4 3.39e- 5   0.410 roc_auc binary  0.978     5
-    ## 5     7    16         12    1.89e-5 1.62e- 4   0.771 roc_auc binary  0.976     5
+    ## 1    32    12         14 0.00542     2.17e-9   0.810 roc_auc binary  0.983     5
+    ## 2     7     2          6 0.00000995  1.61e-6   0.829 roc_auc binary  0.978     5
+    ## 3     2    14         11 0.00122     5.90e-3   0.636 roc_auc binary  0.975     5
+    ## 4    14    22         12 0.0176      4.34e-4   0.891 roc_auc binary  0.973     5
+    ## 5     2     6         10 0.00000320  2.72e-7   0.313 roc_auc binary  0.972     5
     ## # … with 2 more variables: std_err <dbl>, .config <chr>, and abbreviated
     ## #   variable names ¹​loss_reduction, ²​sample_size, ³​.estimator
 
 ### Post-Tuning Model Comparison
+
+<details>
+<summary>
+View Code
+</summary>
 
 ``` r
 lr_acc = collect_metrics(log_res) |>
@@ -1327,6 +1352,8 @@ data.frame(model = c("Logistic Regression", "Random Forest", "XGBoost"),
   labs(title = "Post-Tuning Model Comparison", fill = NULL, x = "Evaluation Metric", y = "Value")
 ```
 
+</details>
+
 ![](README_files/figure-gfm/unnamed-chunk-53-1.png)<!-- -->
 
 ### Script Runtime
@@ -1335,4 +1362,4 @@ data.frame(model = c("Logistic Regression", "Random Forest", "XGBoost"),
 tictoc::toc()
 ```
 
-    ## 118.2 sec elapsed
+    ## 140.57 sec elapsed
