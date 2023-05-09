@@ -34,6 +34,8 @@ ___
 - [Checking for Missing Data]
 - [Exploratory Data Analysis]
 - [Modeling]
+- [Final Metrics]
+- [Script Runtime]
 
 ### Setup
 
@@ -46,6 +48,7 @@ library(tvthemes)
 library(janitor)
 library(patchwork)
 library(ggcorrplot)
+library(vip)
 
 theme_custom = theme_avatar() +
   theme(plot.title = element_text(hjust = 0.5),
@@ -537,7 +540,7 @@ pre_rec = recipe(diagnosis ~ ., data = df2) |>
   # removes predictors with zero variance
   step_zv(all_predictors()) |>
   # removes highly-correlated predictors, we can control the threshold at which they are removed
-  step_corr(all_predictors(), threshold = 0.8, method = "spearman")
+  step_corr(all_predictors(), threshold = 0.9, method = "spearman")
 
 pre_rec
 ```
@@ -752,8 +755,45 @@ data.frame(model = c("Logistic Regression", "Random Forest", "XGBoost"),
   ggplot(aes(metric, value)) +
   geom_col(aes(fill = model), position = "dodge") +
   geom_text(aes(label = value), position = position_dodge2(width = 0.9), vjust = -0.5, size = 3.5) +
-  labs(title = "Post-Tuning Model Comparison", fill = NULL, x = "Evaluation Metric", y = "Value")
+  labs(title = "Post-Tuning Model Comparison", fill = NULL, x = "Evaluation Metric", y = "Value") +
+  coord_cartesian(ylim = c(0, 1.05))
 ```
+
+After model tuning, it looks like the best model is either our logistic regression or random forest. The logistic regression tends to have a higher accuracy, but the random forest tends to have a larger area under the curve. I'll choose to move forward with the random forest.
+
+### Finalizing Model
+
+```{r fold_code = T}
+best_auc = select_best(tune_res, metric = "roc_auc")
+final_rf = finalize_model(tune_spec, best_auc)
+final_rf
+```
+
+### Fitting Final Model and Getting Variable Importance
+
+```{r fold_code = T}
+final_rf |>
+  set_engine("ranger", importance = "permutation") |>
+  fit(diagnosis ~ ., data = juice(prep(pre_rec)) |> select(-id)) |>
+  vip(geom = "point")
+```
+
+### Final Metrics
+
+```{r fold_code = T}
+final_wf = workflow() |>
+  add_recipe(pre_rec) |>
+  add_model(final_rf)
+
+final_res = final_wf |>
+  last_fit(data_split)
+
+final_res |>
+  collect_metrics()
+```
+
+
+
 
 
 
